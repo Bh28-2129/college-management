@@ -1,0 +1,1048 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faculty Dashboard - College Automation System</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css"><!-- reuse card styles from index -->
+    <link rel="stylesheet" href="faculty.css">
+</head>
+<body>
+    <!-- Full-page layout: remove card wrappers -->
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Faculty Title Section -->
+        <div class="header-section">
+            <h1 class="college-title">Faculty Dashboard - ECAP</h1>
+        </div>
+
+        <!-- Moving Text Section (Marquee) -->
+        <div class="marquee-section">
+            <marquee behavior="scroll" direction="left" scrollamount="5" class="marquee-text">
+                Welcome to Faculty Dashboard &nbsp;&nbsp;|&nbsp;&nbsp; College Automation System &nbsp;&nbsp;|&nbsp;&nbsp; Manage Your Classes Efficiently &nbsp;&nbsp;|&nbsp;&nbsp; ECAP - Educational College Automation Platform
+            </marquee>
+        </div>
+
+        <!-- Password Action Bar -->
+        <div class="password-action-bar">
+            <div class="bar-left">
+                <span class="principal-name">Faculty Dashboard</span>
+            </div>
+            <div class="bar-right">
+                <button class="password-link btn btn-link p-0 me-3" id="changePasswordBtn" style="text-decoration:none;">
+                    <i class="bi bi-key-fill"></i> Change Password
+                </button>
+                <a href="index.html" class="password-link">
+                    <i class="bi bi-box-arrow-right"></i> Logout
+                </a>
+            </div>
+        </div>
+
+        <!-- Main Content Area with Sidebar -->
+        <div class="content-wrapper">
+            <!-- Sidebar Menu -->
+            <div class="sidebar-menu">
+                <div class="menu-header">
+                    MENU
+                </div>
+                <ul class="menu-list">
+                    <li>
+                        <a href="#" class="menu-item active">
+                            <i class="bi bi-person-lines-fill me-1"></i> Profile
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="menu-item">
+                            <i class="bi bi-cloud-upload-fill me-1"></i> Upload Marks
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="menu-item">
+                            <i class="bi bi-clipboard-check-fill me-1"></i> Attendance
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Main Panel -->
+            <div class="main-panel">
+                <div class="container py-3">
+
+                    <!-- ===== PROFILE SECTION ===== -->
+                    <div id="profileSection" class="mb-4">
+
+                        <!-- Add Details Button -->
+                        <div class="d-flex justify-content-end mb-3">
+                            <button id="addDetailsBtn" class="btn btn-primary fw-bold">
+                                <i class="bi bi-plus-circle me-1"></i> Add Details
+                            </button>
+                        </div>
+
+                        <!-- Profile Display -->
+                        <div class="profile-card" id="profileDisplay">
+                            <div class="profile-section-title">Personal Details</div>
+                            <div class="profile-grid">
+                                <div class="profile-field"><span class="profile-label">First Name</span><span id="profileFName">-</span></div>
+                                <div class="profile-field"><span class="profile-label">Last Name</span><span id="profileLName">-</span></div>
+                                <div class="profile-field"><span class="profile-label">DOB</span><span id="profileDOB">-</span></div>
+                                <div class="profile-field"><span class="profile-label">Faculty ID</span><span id="profileFacultyId">-</span></div>
+                                <div class="profile-field"><span class="profile-label">Branch</span><span id="profileBranch">-</span></div>
+                                <div class="profile-field"><span class="profile-label">Role</span><span id="profileRole">-</span></div>
+                                <div class="profile-field"><span class="profile-label">Gender</span><span id="profileGender">-</span></div>
+                                <div class="profile-field"><span class="profile-label">Nationality</span><span id="profileNationality">-</span></div>
+                                <div class="profile-field"><span class="profile-label">Religion</span><span id="profileReligion">-</span></div>
+                                <div class="profile-field"><span class="profile-label">Mobile</span><span id="profileMobile">-</span></div>
+                                <div class="profile-field"><span class="profile-label">Email</span><span id="profileEmail">-</span></div>
+                                <div class="profile-field"><span class="profile-label">Aadhar No.</span><span id="profileAadhar">-</span></div>
+                                <div class="profile-field"><span class="profile-label">City</span><span id="profileCity">-</span></div>
+                            </div>
+
+                            <div class="profile-section-title mt-3">Academic Qualifications</div>
+                            <table class="profile-table stacked" id="qualificationsTable">
+                                <thead><tr><th>Qualification</th><th>From</th><th>To</th><th>Cert Type</th><th>File</th></tr></thead>
+                                <tbody></tbody>
+                            </table>
+
+                            <div class="profile-section-title mt-3">Experience</div>
+                            <table class="profile-table stacked" id="experienceTable">
+                                <thead><tr><th>College</th><th>Designation</th><th>From Year</th><th>To Year</th><th>Certificate File</th></tr></thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+
+                        <!-- Add Details Form (hidden by default) -->
+                        <div id="detailsCard" class="card glass-card mx-auto mt-3" style="max-width:900px;display:none;">
+                            <div class="card-header fw-bold"><i class="bi bi-person-fill me-2"></i>Add Faculty Details</div>
+                            <div class="card-body">
+                                <form id="facultyDetailsForm" class="row g-3">
+
+                                    <div class="col-12"><div class="form-section-title">Personal Details</div></div>
+
+                                    <div class="col-md-6">
+                                        <label class="form-label">First Name <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" id="personFName" placeholder="Enter first name" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">Last Name <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" id="personLName" placeholder="Enter last name" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">Date of Birth <span class="text-danger">*</span></label>
+                                        <input type="date" class="form-control" id="dob" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">Faculty ID <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" id="facultyId" placeholder="e.g. FAC001" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">Branch <span class="text-danger">*</span></label>
+                                        <select class="form-select" id="branch" required>
+                                            <option value="">Choose...</option>
+                                            <option>CSE</option><option>ECE</option><option>EEE</option>
+                                            <option>MECH</option><option>CIVIL</option><option>IT</option>
+                                            <option>MBA</option><option>MCA</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">Role <span class="text-danger">*</span></label>
+                                        <select class="form-select" id="role" required>
+                                            <option value="">Choose...</option>
+                                            <option>Professor</option><option>Associate Professor</option>
+                                            <option>Assistant Professor</option><option>Lecturer</option><option>HOD</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">Gender <span class="text-danger">*</span></label>
+                                        <select class="form-select" id="gender" required>
+                                            <option value="">Choose...</option>
+                                            <option>Male</option><option>Female</option><option>Other</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">Nationality</label>
+                                        <input type="text" class="form-control" id="nationality" placeholder="e.g. Indian">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">Religion</label>
+                                        <input type="text" class="form-control" id="religion" placeholder="Enter religion">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">Mobile Number <span class="text-danger">*</span></label>
+                                        <input type="tel" class="form-control" id="mobile" placeholder="10-digit mobile" pattern="[0-9]{10}" maxlength="10" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">Email <span class="text-danger">*</span></label>
+                                        <input type="email" class="form-control" id="email" placeholder="Enter email" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">Aadhar No.</label>
+                                        <input type="text" class="form-control" id="aadhar" placeholder="12-digit Aadhar" maxlength="12">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">City</label>
+                                        <input type="text" class="form-control" id="city" placeholder="Enter city">
+                                    </div>
+
+                                    <div class="col-12 mt-2"><div class="form-section-title">Academic Qualifications</div></div>
+                                    <div id="qualificationsContainer">
+                                        <div class="qualification-entry" data-entry="0">
+                                            <div class="col-12">
+                                                <label class="form-label">Select Qualification</label>
+                                                <select class="form-select qualification-select" id="qualification-0">
+                                                    <option value="">Choose...</option>
+                                                    <option value="ssc">SSC</option><option value="plus2">+2</option>
+                                                    <option value="ug">UG</option><option value="pg">PG</option><option value="phd">PhD</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-12 qualification-heading" style="display:none;">
+                                                <h5 class="mt-3 mb-2" style="color:#667eea;font-weight:600;"></h5>
+                                            </div>
+                                            <div class="qual-details-section" style="display:none;">
+                                                <div class="col-12">
+                                                    <label class="form-label">From Year</label>
+                                                    <input type="number" class="form-control qual-from-date" id="qualFrom-0" min="1950" max="2100" placeholder="e.g., 2020">
+                                                </div>
+                                                <div class="col-12">
+                                                    <label class="form-label">To Year</label>
+                                                    <input type="number" class="form-control qual-to-date" id="qualTo-0" min="1950" max="2100" placeholder="e.g., 2024">
+                                                </div>
+                                                <div class="col-12">
+                                                    <label class="form-label">Certificate Type</label>
+                                                    <select class="form-select cert-type-select" id="certType-0">
+                                                        <option value="">Choose...</option>
+                                                        <option value="memo">Memo</option><option value="certificate">Certificate</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 upload-section" style="display:none;">
+                                                <label class="form-label">Upload Certificate</label>
+                                                <input type="file" class="form-control qualification-file" id="qualificationFile-0" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 mt-2"><div class="form-section-title">Experience</div></div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">College</label>
+                                        <input type="text" class="form-control" id="college" placeholder="Enter college name">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">Designation</label>
+                                        <input type="text" class="form-control" id="designation" placeholder="Enter designation">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">From Year</label>
+                                        <input type="number" class="form-control" id="expFrom" min="1950" max="2100" placeholder="e.g., 2020">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">To Year</label>
+                                        <input type="number" class="form-control" id="expTo" min="1950" max="2100" placeholder="e.g., 2024">
+                                    </div>
+                                    <div class="col-12">
+                                        <label class="form-label">Upload Experience Certificate</label>
+                                        <input type="file" class="form-control" id="certificateUpload" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx">
+                                    </div>
+
+                                    <div class="col-12 d-flex gap-2 mt-2">
+                                        <button type="submit" class="btn btn-primary"><i class="bi bi-save me-1"></i>Submit</button>
+                                        <button type="reset" class="btn btn-secondary">Reset</button>
+                                        <button type="button" id="cancelDetailsBtn" class="btn btn-outline-danger">Cancel</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ===== UPLOAD MARKS SECTION ===== -->
+                    <div id="uploadMarksSection" style="display:none;">
+                        <div class="card glass-card mx-auto" style="max-width:760px;">
+                            <div class="card-header fw-bold"><i class="bi bi-upload me-2"></i>Upload Marks</div>
+                            <div class="card-body">
+
+                                <!-- Step 1: Class Selection -->
+                                <div class="row g-3 mb-3">
+                                    <div class="col-md-5">
+                                        <label class="form-label fw-semibold">Department <span class="text-danger">*</span></label>
+                                        <select class="form-select" id="marksDept">
+                                            <option value="">-- Select Dept --</option>
+                                            <option>CSE</option><option>ECE</option>
+                                            <option>MECH</option><option>CIVIL</option><option>MBA</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="form-label fw-semibold">Section <span class="text-danger">*</span></label>
+                                        <select class="form-select" id="marksSection">
+                                            <option value="">-- Select Section --</option>
+                                            <option value="A">Section A</option>
+                                            <option value="B">Section B</option>
+                                            <option value="C">Section C</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3 d-flex align-items-end">
+                                        <button type="button" class="btn btn-primary w-100" id="marksLoadStudentsBtn">
+                                            <i class="bi bi-search me-1"></i> Load Students
+                                        </button>
+                                    </div>
+                                </div>
+                                <div id="marksLoadError" class="alert alert-warning py-2 mb-3" style="display:none;"></div>
+
+                                <!-- Step 2: Exam Config (shown after students loaded) -->
+                                <div id="marksConfigRow" style="display:none;">
+                                    <div class="mb-3">
+                                        <label class="form-label fw-semibold">Select Exam Type <span class="text-danger">*</span></label>
+                                        <select class="form-select" id="examType">
+                                            <option value="">-- Choose Exam --</option>
+                                            <option value="Mid 1">Mid 1</option>
+                                            <option value="Mid 2">Mid 2</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-3" id="subTypeRow">
+                                        <label class="form-label fw-semibold">Select Format <span class="text-danger">*</span></label>
+                                        <div class="d-flex gap-4 flex-wrap">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="subType" id="subAssignment" value="Assignments">
+                                                <label class="form-check-label" for="subAssignment">Assignments</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="subType" id="subQuiz" value="Quiz">
+                                                <label class="form-check-label" for="subQuiz">Quiz</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="subType" id="subTheory" value="Theory">
+                                                <label class="form-check-label" for="subTheory">Theory</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Step 3: Marks Table -->
+                                <div id="marksEntryRow" style="display:none;">
+                                    <p class="fw-semibold mb-2" id="marksTableLabel"></p>
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-hover" id="marksTable">
+                                            <thead class="table-dark">
+                                                <tr><th style="width:42px;">#</th><th>Roll No.</th><th>Student Name</th><th style="width:130px;">Marks <small class="text-warning fw-normal">(0–100)</small></th></tr>
+                                            </thead>
+                                            <tbody id="marksTableBody"></tbody>
+                                        </table>
+                                    </div>
+                                    <div class="d-flex gap-3 align-items-center mt-2">
+                                        <button type="button" class="btn btn-success fw-bold px-4" id="uploadMarksBtn">
+                                            <i class="bi bi-cloud-upload me-1"></i> Upload Marks
+                                        </button>
+                                        <span class="text-muted small" id="marksStudentCount"></span>
+                                    </div>
+                                    <div id="marksSuccessMsg" class="alert alert-success mt-3 fw-semibold" style="display:none;"></div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ===== ATTENDANCE SECTION ===== -->
+                    <div id="attendanceSection" style="display:none;">
+                        <div class="card glass-card mx-auto" style="max-width:700px;">
+                            <div class="card-header fw-bold"><i class="bi bi-clipboard-check me-2"></i>Attendance</div>
+                            <div class="card-body">
+
+                                <div class="row g-3 mb-3">
+                                    <div class="col-md-5">
+                                        <label class="form-label fw-semibold">Department <span class="text-danger">*</span></label>
+                                        <select class="form-select" id="attDept">
+                                            <option value="">-- Select Department --</option>
+                                            <option>CSE</option>
+                                            <option>ECE</option>
+                                            <option>MECH</option>
+                                            <option>CIVIL</option>
+                                            <option>MBA</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4" id="attSectionCol" style="display:none;">
+                                        <label class="form-label fw-semibold">Section <span class="text-danger">*</span></label>
+                                        <select class="form-select" id="attSection">
+                                            <option value="">-- Select Section --</option>
+                                            <option value="A">Section A</option>
+                                            <option value="B">Section B</option>
+                                            <option value="C">Section C</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3 d-flex align-items-end" id="attShowBtnCol" style="display:none;">
+                                        <button type="button" class="btn btn-primary w-100" id="attShowBtn">
+                                            <i class="bi bi-search me-1"></i> Load Students
+                                        </button>
+                                    </div>
+                                </div>
+                                <div id="attLoadError" class="alert alert-warning py-2 mb-3" style="display:none;"></div>
+
+                                <!-- Attendance Table -->
+                                <div id="attTableWrapper" style="display:none;">
+                                    <p class="fw-semibold mb-2" id="attTableLabel"></p>
+                                    <table class="table table-bordered align-middle">
+                                        <thead class="table-dark">
+                                            <tr>
+                                                <th style="width:60px;">#</th>
+                                                <th>Roll No.</th>
+                                                <th>Student Name</th>
+                                                <th class="text-center">Present</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="attTableBody"></tbody>
+                                    </table>
+                                    <div class="d-flex justify-content-between align-items-center mt-2 mb-3">
+                                        <span class="text-muted small" id="attCountLabel"></span>
+                                        <button type="button" class="btn btn-success fw-bold px-4" id="attSubmitBtn">
+                                            <i class="bi bi-check-circle me-1"></i> Submit Attendance
+                                        </button>
+                                    </div>
+                                    <div id="attSuccessMsg" class="alert alert-success fw-semibold" style="display:none;">
+                                        <i class="bi bi-check-circle-fill me-2"></i>Attendance submitted successfully!
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- API Helper -->
+    <script src="api.js"></script>
+    <!-- Custom JavaScript -->
+    <script src="principal-dashboard.js"></script>
+    <script>
+    // ── Auth Guard ────────────────────────────────────────────
+    (function checkAuth() {
+        const token = Auth.getToken();
+        const user  = Auth.getUser();
+        if (!token || !user || user.role !== 'faculty') {
+            window.location.href = 'index.html';
+        }
+    })();
+
+    document.addEventListener('DOMContentLoaded', function () {
+
+        // â”€â”€ SIDEBAR NAVIGATION â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+        const menuItems           = document.querySelectorAll('.menu-item');
+        const profileSection      = document.getElementById('profileSection');
+        const uploadMarksSection  = document.getElementById('uploadMarksSection');
+        const attendanceSection   = document.getElementById('attendanceSection');
+
+        function showSection(name) {
+            profileSection.style.display     = (name === 'profile')      ? 'block' : 'none';
+            uploadMarksSection.style.display  = (name === 'uploadmarks')  ? 'block' : 'none';
+            attendanceSection.style.display   = (name === 'attendance')   ? 'block' : 'none';
+        }
+
+        menuItems.forEach(item => {
+            item.addEventListener('click', function (e) {
+                e.preventDefault();
+                menuItems.forEach(m => m.classList.remove('active'));
+                this.classList.add('active');
+                const text = this.textContent.trim().toLowerCase();
+                if (text.includes('profile'))         showSection('profile');
+                else if (text.includes('upload'))     showSection('uploadmarks');
+                else if (text.includes('attendance')) showSection('attendance');
+            });
+        });
+
+        // ── ATTENDANCE LOGIC ────────────────────────────────────────────
+        const attDept        = document.getElementById('attDept');
+        const attSectionEl   = document.getElementById('attSection');
+        const attSectionCol  = document.getElementById('attSectionCol');
+        const attShowBtnCol  = document.getElementById('attShowBtnCol');
+        const attShowBtn     = document.getElementById('attShowBtn');
+        const attTableWrapper= document.getElementById('attTableWrapper');
+        const attTableBody   = document.getElementById('attTableBody');
+        const attTableLabel  = document.getElementById('attTableLabel');
+        const attCountLabel  = document.getElementById('attCountLabel');
+        const attSubmitBtn   = document.getElementById('attSubmitBtn');
+        const attSuccessMsg  = document.getElementById('attSuccessMsg');
+        const attLoadError   = document.getElementById('attLoadError');
+
+        // Pre-select faculty's own department
+        (function prefillAttDept() {
+            const user = Auth.getUser();
+            if (user && user.department) {
+                attDept.value = user.department;
+                attSectionCol.style.display = 'block';
+            }
+        })();
+
+        attDept.addEventListener('change', function () {
+            attSectionCol.style.display  = this.value ? 'block' : 'none';
+            attSectionEl.value           = '';
+            attShowBtnCol.style.display  = 'none';
+            attTableWrapper.style.display= 'none';
+            attSuccessMsg.style.display  = 'none';
+            attLoadError.style.display   = 'none';
+        });
+
+        attSectionEl.addEventListener('change', function () {
+            attShowBtnCol.style.display  = this.value ? 'flex' : 'none';
+            attTableWrapper.style.display= 'none';
+            attSuccessMsg.style.display  = 'none';
+            attLoadError.style.display   = 'none';
+        });
+
+        attShowBtn.addEventListener('click', async function () {
+            const dept    = attDept.value;
+            const section = attSectionEl.value;
+            if (!dept || !section) return;
+
+            attSuccessMsg.style.display = 'none';
+            attLoadError.style.display  = 'none';
+            attShowBtn.disabled         = true;
+            attShowBtn.innerHTML        = '<span class="spinner-border spinner-border-sm"></span> Loading…';
+
+            try {
+                // section value is "A","B","C"
+                const students = await ApiStudents.byClass(dept, section);
+                if (!students.length) {
+                    attLoadError.textContent  = `No students found for ${dept} – Section ${section}.`;
+                    attLoadError.style.display= 'block';
+                    attTableWrapper.style.display = 'none';
+                    return;
+                }
+                attTableLabel.textContent = `${dept}  |  Section ${section}  —  ${new Date().toLocaleDateString('en-IN', {weekday:'long', year:'numeric', month:'long', day:'numeric'})}`;
+                attTableBody.innerHTML = '';
+                students.forEach((s, i) => {
+                    const fullName = s.first_name + ' ' + s.last_name;
+                    const tr = document.createElement('tr');
+                    tr.dataset.roll = s.roll_number;
+                    tr.dataset.name = fullName;
+                    tr.innerHTML = `
+                        <td>${i + 1}</td>
+                        <td>${s.roll_number}</td>
+                        <td>${fullName}</td>
+                        <td class="text-center">
+                            <input type="checkbox" class="form-check-input att-checkbox" checked style="width:1.2em;height:1.2em;cursor:pointer;">
+                        </td>`;
+                    attTableBody.appendChild(tr);
+                });
+                attTableWrapper.style.display = 'block';
+                updateAttCount();
+                attTableWrapper.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            } catch (err) {
+                attLoadError.textContent  = 'Failed to load students: ' + err.message;
+                attLoadError.style.display= 'block';
+            } finally {
+                attShowBtn.disabled  = false;
+                attShowBtn.innerHTML = '<i class="bi bi-search me-1"></i> Load Students';
+            }
+        });
+
+        function updateAttCount() {
+            const total   = attTableBody.querySelectorAll('.att-checkbox').length;
+            const present = attTableBody.querySelectorAll('.att-checkbox:checked').length;
+            attCountLabel.textContent = `Present: ${present} / ${total}`;
+        }
+
+        attTableBody.addEventListener('change', updateAttCount);
+
+        attSubmitBtn.addEventListener('click', async function () {
+            const dept    = attDept.value;
+            const section = attSectionEl.value;
+            if (!dept || !section) return;
+
+            const rows = [];
+            attTableBody.querySelectorAll('tr').forEach(tr => {
+                rows.push({
+                    roll_number  : tr.dataset.roll,
+                    student_name : tr.dataset.name,
+                    is_present   : tr.querySelector('.att-checkbox')?.checked ?? true
+                });
+            });
+            if (!rows.length) return;
+
+            attSubmitBtn.disabled   = true;
+            attSubmitBtn.innerHTML  = '<span class="spinner-border spinner-border-sm"></span> Submitting…';
+            attSuccessMsg.style.display = 'none';
+
+            try {
+                await ApiAttendance.submit({ department: dept, section, rows });
+                attSuccessMsg.innerHTML = '<i class="bi bi-check-circle-fill me-2"></i>Attendance submitted successfully!';
+                attSuccessMsg.style.display = 'block';
+                attSuccessMsg.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            } catch (err) {
+                attLoadError.textContent  = 'Submit failed: ' + err.message;
+                attLoadError.style.display= 'block';
+            } finally {
+                attSubmitBtn.disabled  = false;
+                attSubmitBtn.innerHTML = '<i class="bi bi-check-circle me-1"></i> Submit Attendance';
+            }
+        });
+
+        // ── PROFILE: Add/Edit Details toggle ────────────────────────────────────
+        const addDetailsBtn   = document.getElementById('addDetailsBtn');
+        const cancelDetailsBtn = document.getElementById('cancelDetailsBtn');
+        const detailsCard     = document.getElementById('detailsCard');
+        let currentProfileData = { personal: {}, qualifications: [], experience: [] };
+
+        function populateFacultyForm(data) {
+            const p = data.personal || {};
+            const setVal = (id, val) => { const el = document.getElementById(id); if (el) el.value = (val && val !== '-') ? val : ''; };
+            setVal('personFName',  p.fname);
+            setVal('personLName',  p.lname);
+            setVal('dob',          p.dob);
+            setVal('branch',       p.branch);
+            setVal('role',         p.role);
+            setVal('gender',       p.gender);
+            setVal('nationality',  p.nationality);
+            setVal('religion',     p.religion);
+            setVal('mobile',       p.mobile);
+            setVal('email',        p.email);
+            setVal('aadhar',       p.aadhar);
+            setVal('city',         p.city);
+            // facultyId is read-only from JWT
+            const fidEl = document.getElementById('facultyId');
+            if (fidEl) fidEl.value = p.facultyId || '';
+            // Experience fields
+            if (data.experience && data.experience.length > 0) {
+                const ex = data.experience[0];
+                setVal('college',     ex.college);
+                setVal('designation', ex.designation);
+                setVal('expFrom',     ex.fromYear);
+                setVal('expTo',       ex.toYear);
+            }
+        }
+
+        addDetailsBtn.addEventListener('click', function () {
+            populateFacultyForm(currentProfileData);
+            detailsCard.style.display = 'block';
+            detailsCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+
+        cancelDetailsBtn?.addEventListener('click', function () {
+            detailsCard.style.display = 'none';
+        });
+
+        // â”€â”€ PROFILE: Load & render â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+        const emptyProfile = { personal: {}, qualifications: [], experience: [] };
+
+        async function loadProfile() {
+            const user = Auth.getUser();
+            if (!user || !user.facultyId) return emptyProfile;
+            try {
+                const d = await ApiFaculty.get(user.facultyId);
+                return {
+                    personal: {
+                        fname:       d.first_name            || '-',
+                        lname:       d.last_name             || '-',
+                        dob:         d.date_of_birth         || '-',
+                        facultyId:   d.faculty_id            || '-',
+                        branch:      d.department            || '-',
+                        role:        d.role                  || '-',
+                        gender:      d.gender                || '-',
+                        nationality: d.nationality           || '-',
+                        religion:    d.religion              || '-',
+                        mobile:      d.mobile                || '-',
+                        email:       d.email                 || '-',
+                        aadhar:      d.aadhar_number         || '-',
+                        city:        d.city                  || '-',
+                    },
+                    qualifications: (d.qualifications || []).map(q => ({
+                        qualification: q.qualification,
+                        fromYear:      q.from_year,
+                        toYear:        q.to_year,
+                        certType:      q.certificate_type,
+                        fileName:      q.certificate_filename || '-'
+                    })),
+                    experience: (d.experience || []).map(e => ({
+                        college:     e.college,
+                        designation: e.designation,
+                        fromYear:    e.from_year,
+                        toYear:      e.to_year,
+                        fileName:    e.certificate_filename || '-'
+                    }))
+                };
+            } catch (e) {
+                console.warn('loadProfile:', e.message);
+                return emptyProfile;
+            }
+        }
+
+        async function saveProfileToApi(profileData) {
+            const user = Auth.getUser();
+            if (!user || !user.facultyId) return;
+            const p = profileData.personal || {};
+            const qualifications = (profileData.qualifications || []).map(q => ({
+                qualification: q.qualification,
+                from_year:     q.fromYear,
+                to_year:       q.toYear,
+                cert_type:     q.certType,
+                cert_filename: q.fileName
+            }));
+            const experience = (profileData.experience || []).map(e => ({
+                college:      e.college,
+                designation:  e.designation,
+                from_year:    e.fromYear,
+                to_year:      e.toYear,
+                cert_filename: e.fileName
+            }));
+            try {
+                await ApiFaculty.updateProfile(user.facultyId, {
+                    first_name:    p.fname,
+                    last_name:     p.lname,
+                    date_of_birth: p.dob,
+                    gender:        p.gender,
+                    mobile:        p.mobile,
+                    email:         p.email,
+                    nationality:   p.nationality,
+                    religion:      p.religion,
+                    aadhar_number: p.aadhar,
+                    city:          p.city,
+                    qualifications,
+                    experience
+                });
+            } catch (e) {
+                console.warn('saveProfile:', e.message);
+            }
+        }
+
+        function renderProfile(data) {
+            const p = data.personal || {};
+            document.getElementById('profileFName').textContent      = p.fname      || '-';
+            document.getElementById('profileLName').textContent      = p.lname      || '-';
+            document.getElementById('profileDOB').textContent        = p.dob        || '-';
+            document.getElementById('profileFacultyId').textContent  = p.facultyId  || '-';
+            document.getElementById('profileBranch').textContent     = p.branch     || '-';
+            document.getElementById('profileRole').textContent       = p.role       || '-';
+            document.getElementById('profileGender').textContent     = p.gender     || '-';
+            document.getElementById('profileNationality').textContent= p.nationality|| '-';
+            document.getElementById('profileReligion').textContent   = p.religion   || '-';
+            document.getElementById('profileMobile').textContent     = p.mobile     || '-';
+            document.getElementById('profileEmail').textContent      = p.email      || '-';
+            document.getElementById('profileAadhar').textContent     = p.aadhar     || '-';
+            document.getElementById('profileCity').textContent       = p.city       || '-';
+
+            const qBody = document.querySelector('#qualificationsTable tbody');
+            if (qBody) {
+                qBody.innerHTML = '';
+                (data.qualifications || []).forEach(item => {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `<td>${item.qualification||'-'}</td><td>${item.fromYear||'-'}</td><td>${item.toYear||'-'}</td><td>${item.certType||'-'}</td><td>${item.fileName||'-'}</td>`;
+                    qBody.appendChild(tr);
+                });
+                if (!qBody.children.length) qBody.innerHTML = '<tr><td colspan="5" class="text-muted text-center">No qualifications added yet</td></tr>';
+            }
+
+            const eBody = document.querySelector('#experienceTable tbody');
+            if (eBody) {
+                eBody.innerHTML = '';
+                (data.experience || []).forEach(item => {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `<td>${item.college||'-'}</td><td>${item.designation||'-'}</td><td>${item.fromYear||'-'}</td><td>${item.toYear||'-'}</td><td>${item.fileName||'-'}</td>`;
+                    eBody.appendChild(tr);
+                });
+                if (!eBody.children.length) eBody.innerHTML = '<tr><td colspan="5" class="text-muted text-center">No experience added yet</td></tr>';
+            }
+        }
+
+        loadProfile().then(data => {
+            currentProfileData = data;
+            renderProfile(data);
+            const p = data.personal || {};
+            const hasData = p.fname && p.fname !== '-';
+            if (hasData) {
+                addDetailsBtn.innerHTML = '<i class="bi bi-pencil-fill me-1"></i> Edit Profile';
+                addDetailsBtn.classList.replace('btn-primary', 'btn-warning');
+                document.querySelector('#detailsCard .card-header').innerHTML = '<i class="bi bi-pencil-fill me-2"></i>Edit Faculty Profile';
+            }
+        });
+
+        // â”€â”€ PROFILE: Form submit â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+        function fileToBase64(file) {
+            return new Promise((res, rej) => {
+                const r = new FileReader();
+                r.onload = () => res(r.result);
+                r.onerror = rej;
+                r.readAsDataURL(file);
+            });
+        }
+
+        async function collectQualifications() {
+            const rows = [];
+            for (const entry of document.querySelectorAll('.qualification-entry')) {
+                const qual = entry.querySelector('.qualification-select')?.value;
+                if (!qual) continue;
+                const fi = entry.querySelector('.qualification-file');
+                let fileName = '-', fileData = null;
+                if (fi?.files?.[0]) { fileName = fi.files[0].name; fileData = await fileToBase64(fi.files[0]); }
+                rows.push({
+                    qualification: entry.querySelector('.qualification-select').options[entry.querySelector('.qualification-select').selectedIndex].text,
+                    fromYear: entry.querySelector('.qual-from-date')?.value || '-',
+                    toYear:   entry.querySelector('.qual-to-date')?.value   || '-',
+                    certType: entry.querySelector('.cert-type-select')?.value || '-',
+                    fileName, fileData
+                });
+            }
+            return rows;
+        }
+
+        async function collectExperience() {
+            const college     = document.getElementById('college')?.value     || '';
+            const designation = document.getElementById('designation')?.value || '';
+            const fromYear    = document.getElementById('expFrom')?.value     || '';
+            const toYear      = document.getElementById('expTo')?.value       || '';
+            if (!(college || designation || fromYear || toYear)) return [];
+            const fi = document.getElementById('certificateUpload');
+            let fileName = '-', fileData = null;
+            if (fi?.files?.[0]) { fileName = fi.files[0].name; fileData = await fileToBase64(fi.files[0]); }
+            return [{ college: college||'-', designation: designation||'-', fromYear: fromYear||'-', toYear: toYear||'-', fileName, fileData }];
+        }
+
+        document.getElementById('facultyDetailsForm')?.addEventListener('submit', async function (e) {
+            e.preventDefault();
+            const personal = {
+                fname:       document.getElementById('personFName')?.value  || '-',
+                lname:       document.getElementById('personLName')?.value  || '-',
+                dob:         document.getElementById('dob')?.value          || '-',
+                facultyId:   document.getElementById('facultyId')?.value    || '-',
+                branch:      document.getElementById('branch')?.value       || '-',
+                role:        document.getElementById('role')?.value         || '-',
+                gender:      document.getElementById('gender')?.value       || '-',
+                nationality: document.getElementById('nationality')?.value  || '-',
+                religion:    document.getElementById('religion')?.value     || '-',
+                mobile:      document.getElementById('mobile')?.value       || '-',
+                email:       document.getElementById('email')?.value        || '-',
+                aadhar:      document.getElementById('aadhar')?.value       || '-',
+                city:        document.getElementById('city')?.value         || '-',
+            };
+            const qualifications = await collectQualifications();
+            const experience     = await collectExperience();
+            const profileData    = { personal, qualifications, experience };
+            await saveProfileToApi(profileData);
+            currentProfileData = profileData;
+            renderProfile(profileData);
+            addDetailsBtn.innerHTML = '<i class="bi bi-pencil-fill me-1"></i> Edit Profile';
+            addDetailsBtn.classList.replace('btn-primary', 'btn-warning');
+            document.querySelector('#detailsCard .card-header').innerHTML = '<i class="bi bi-pencil-fill me-2"></i>Edit Faculty Profile';
+            this.reset();
+            detailsCard.style.display = 'none';
+            alert('Details saved successfully!');
+        });
+
+        // â”€â”€ QUALIFICATIONS: dynamic entries â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+        let entryCount = 0;
+
+        function getSelectedQualifications() {
+            return [...document.querySelectorAll('.qualification-select')].map(s => s.value).filter(Boolean);
+        }
+        function updateQualificationOptions() {
+            const selected = getSelectedQualifications();
+            document.querySelectorAll('.qualification-select').forEach(sel => {
+                const cur = sel.value;
+                sel.querySelectorAll('option').forEach(opt => {
+                    if (opt.value && opt.value !== cur) opt.disabled = selected.includes(opt.value);
+                });
+            });
+        }
+        function attachQualificationListeners(entry) {
+            const sel     = entry.querySelector('.qualification-select');
+            const upSec   = entry.querySelector('.upload-section');
+            const headSec = entry.querySelector('.qualification-heading');
+            const detSec  = entry.querySelector('.qual-details-section');
+            const headTxt = headSec.querySelector('h5');
+            const fi      = entry.querySelector('.qualification-file');
+
+            sel.addEventListener('change', function () {
+                if (this.value) {
+                    headSec.style.display = 'block';
+                    detSec.style.display  = 'block';
+                    upSec.style.display   = 'block';
+                    headTxt.textContent   = this.options[this.selectedIndex].text;
+                } else {
+                    headSec.style.display = detSec.style.display = upSec.style.display = 'none';
+                    headTxt.textContent   = '';
+                }
+                updateQualificationOptions();
+            });
+            fi.addEventListener('change', function () {
+                if (this.files.length > 0) addNewQualificationEntry();
+            });
+        }
+        function addNewQualificationEntry() {
+            entryCount++;
+            const e = document.createElement('div');
+            e.className = 'qualification-entry';
+            e.setAttribute('data-entry', entryCount);
+            e.innerHTML = `
+                <div class="col-12 mt-2">
+                    <label class="form-label">Select Qualification</label>
+                    <select class="form-select qualification-select" id="qualification-${entryCount}">
+                        <option value="">Choose...</option>
+                        <option value="ssc">SSC</option><option value="plus2">+2</option>
+                        <option value="ug">UG</option><option value="pg">PG</option><option value="phd">PhD</option>
+                    </select>
+                </div>
+                <div class="col-12 qualification-heading" style="display:none;"><h5 class="mt-3 mb-2" style="color:#667eea;font-weight:600;"></h5></div>
+                <div class="qual-details-section" style="display:none;">
+                    <div class="col-12"><label class="form-label">From Year</label><input type="number" class="form-control qual-from-date" id="qualFrom-${entryCount}" min="1950" max="2100" placeholder="e.g., 2020"></div>
+                    <div class="col-12"><label class="form-label">To Year</label><input type="number" class="form-control qual-to-date" id="qualTo-${entryCount}" min="1950" max="2100" placeholder="e.g., 2024"></div>
+                    <div class="col-12"><label class="form-label">Certificate Type</label>
+                        <select class="form-select cert-type-select" id="certType-${entryCount}">
+                            <option value="">Choose...</option><option value="memo">Memo</option><option value="certificate">Certificate</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-12 upload-section" style="display:none;">
+                    <label class="form-label">Upload Certificate</label>
+                    <input type="file" class="form-control qualification-file" id="qualificationFile-${entryCount}" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx">
+                </div>`;
+            document.getElementById('qualificationsContainer').appendChild(e);
+            attachQualificationListeners(e);
+            updateQualificationOptions();
+        }
+        document.querySelectorAll('.qualification-entry').forEach(e => attachQualificationListeners(e));
+
+        // ── UPLOAD MARKS LOGIC ─────────────────────────────────────────────
+        const marksDeptEl    = document.getElementById('marksDept');
+        const marksSectionEl = document.getElementById('marksSection');
+        const marksLoadBtn   = document.getElementById('marksLoadStudentsBtn');
+        const marksLoadError = document.getElementById('marksLoadError');
+        const marksConfigRow = document.getElementById('marksConfigRow');
+        const examTypeEl     = document.getElementById('examType');
+        const marksEntryRow  = document.getElementById('marksEntryRow');
+        const marksBody      = document.getElementById('marksTableBody');
+        const marksTableLabel= document.getElementById('marksTableLabel');
+        const marksStudentCount = document.getElementById('marksStudentCount');
+        const successMsg     = document.getElementById('marksSuccessMsg');
+        let loadedStudents   = [];
+
+        (function prefillMarksDept() {
+            const user = Auth.getUser();
+            if (user && user.department) marksDeptEl.value = user.department;
+        })();
+
+        function resetMarksSection() {
+            marksConfigRow.style.display  = 'none';
+            marksEntryRow.style.display   = 'none';
+            successMsg.style.display      = 'none';
+            marksLoadError.style.display  = 'none';
+            if (examTypeEl) examTypeEl.value = '';
+            document.querySelectorAll('input[name="subType"]').forEach(r => r.checked = false);
+            marksBody.innerHTML           = '';
+            loadedStudents                = [];
+            marksStudentCount.textContent = '';
+        }
+
+        marksDeptEl.addEventListener('change', resetMarksSection);
+        marksSectionEl.addEventListener('change', resetMarksSection);
+
+        marksLoadBtn.addEventListener('click', async function () {
+            const dept    = marksDeptEl.value;
+            const section = marksSectionEl.value;
+            if (!dept)    { marksLoadError.textContent = 'Please select a department.'; marksLoadError.style.display = 'block'; return; }
+            if (!section) { marksLoadError.textContent = 'Please select a section.';    marksLoadError.style.display = 'block'; return; }
+            marksLoadError.style.display = 'none';
+            marksLoadBtn.disabled        = true;
+            marksLoadBtn.innerHTML       = '<span class="spinner-border spinner-border-sm"></span> Loading…';
+            resetMarksSection();
+            marksDeptEl.value    = dept;
+            marksSectionEl.value = section;
+            try {
+                const students = await ApiStudents.byClass(dept, section);
+                if (!students.length) {
+                    marksLoadError.textContent  = `No students found for ${dept} – Section ${section}. Add students in admin first.`;
+                    marksLoadError.style.display= 'block';
+                    return;
+                }
+                loadedStudents = students;
+                marksConfigRow.style.display  = 'block';
+                marksStudentCount.textContent = `${students.length} student(s) loaded`;
+                marksConfigRow.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            } catch (err) {
+                marksLoadError.textContent  = 'Failed to load students: ' + err.message;
+                marksLoadError.style.display= 'block';
+            } finally {
+                marksLoadBtn.disabled  = false;
+                marksLoadBtn.innerHTML = '<i class="bi bi-search me-1"></i> Load Students';
+            }
+        });
+
+        examTypeEl?.addEventListener('change', function () {
+            successMsg.style.display = 'none';
+            document.querySelectorAll('input[name="subType"]').forEach(r => r.checked = false);
+            marksEntryRow.style.display = 'none';
+        });
+
+        document.querySelectorAll('input[name="subType"]').forEach(radio => {
+            radio.addEventListener('change', function () {
+                if (!loadedStudents.length) return;
+                const dept    = marksDeptEl.value;
+                const section = marksSectionEl.value;
+                const exam    = examTypeEl.value;
+                marksTableLabel.textContent = `${dept}  |  Section ${section}  —  ${exam}  /  ${this.value}`;
+                successMsg.style.display = 'none';
+                marksBody.innerHTML      = '';
+                loadedStudents.forEach((s, i) => {
+                    const fullName = s.first_name + ' ' + s.last_name;
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td>${i + 1}</td>
+                        <td>${s.roll_number}</td>
+                        <td>${fullName}</td>
+                        <td><input type="number" class="form-control form-control-sm marks-input"
+                            data-roll="${s.roll_number}" data-name="${fullName}"
+                            placeholder="–" min="0" max="100"></td>`;
+                    marksBody.appendChild(tr);
+                });
+                marksEntryRow.style.display = 'block';
+                marksEntryRow.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                marksStudentCount.textContent = `${loadedStudents.length} student(s)`;
+            });
+        });
+
+        document.getElementById('uploadMarksBtn')?.addEventListener('click', async function () {
+            const dept    = marksDeptEl.value;
+            const section = marksSectionEl.value;
+            const exam    = examTypeEl.value;
+            const subType = document.querySelector('input[name="subType"]:checked')?.value;
+            if (!exam)    { alert('Please select an exam type.'); return; }
+            if (!subType) { alert('Please select a format (Assignments / Quiz / Theory).'); return; }
+            const rows = [];
+            marksBody.querySelectorAll('.marks-input').forEach(inp => {
+                rows.push({ roll_number: inp.dataset.roll, student_name: inp.dataset.name, marks_scored: inp.value !== '' ? parseInt(inp.value) : null });
+            });
+            if (!rows.length) return;
+            this.disabled   = true;
+            this.innerHTML  = '<span class="spinner-border spinner-border-sm"></span> Uploading…';
+            successMsg.style.display = 'none';
+            try {
+                const result = await ApiMarks.upload({ department: dept, exam_type: exam, sub_type: subType, rows });
+                successMsg.className = 'alert alert-success mt-3 fw-semibold';
+                successMsg.textContent = `Marks uploaded — ${result.inserted} record(s) saved for ${dept} Section ${section} | ${exam} – ${subType}`;
+                successMsg.style.display = 'block';
+                successMsg.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            } catch (err) {
+                successMsg.className = 'alert alert-danger mt-3 fw-semibold';
+                successMsg.textContent = 'Upload failed: ' + err.message;
+                successMsg.style.display = 'block';
+                setTimeout(() => { successMsg.className = 'alert alert-success mt-3 fw-semibold'; }, 4000);
+            } finally {
+                this.disabled  = false;
+                this.innerHTML = '<i class="bi bi-cloud-upload me-1"></i> Upload Marks';
+            }
+        });
+
+}); // end DOMContentLoaded
+</script>
+</body>
+</html>

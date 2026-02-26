@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team Cards</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0a0a0a 0%, #2d2d2d 50%, #0a0a0a 100%);
+        }
+
+        .card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border 0.3s ease;
+            border: 2px solid rgba(0, 255, 255, 0.3);
+            border-radius: 15px;
+            overflow: hidden;
+            background: transparent;
+            padding: 2rem;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 255, 255, 0.5);
+            border: 2px solid cyan;
+        }
+
+        .card-img-top {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 50%;
+            margin: 0 auto;
+            display: block;
+            border: 3px solid cyan;
+        }
+
+        .separator {
+            width: 80%;
+            height: 2px;
+            background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.6), transparent);
+            margin: 1.5rem auto;
+        }
+
+        .card-title {
+            font-weight: bold;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .card-text {
+            color: #fff;
+            line-height: 1.6;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="container d-flex align-items-center justify-content-center min-vh-100">
+        <div class="row g-4 w-100 justify-content-center">
+            <!-- Card 1 -->
+            <div class="col-md-4 col-lg-3">
+                <div class="card shadow-lg">
+                        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=500&h=500&fit=crop" 
+                             class="card-img-top mt-2" 
+                             alt="Sarah Johnson">
+                        <div class="separator"></div>
+                        <h5 class="card-title text-center mb-3">Sarah Johnson</h5>
+                        <p class="card-text text-center">
+                            Senior Software Engineer with 8+ years of experience in full-stack development. 
+                            Passionate about creating innovative solutions and mentoring junior developers.
+                        </p>
+                </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="col-md-4 col-lg-3">
+                <div class="card shadow-lg">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&h=500&fit=crop" 
+                             class="card-img-top mt-2" 
+                             alt="Michael Chen">
+                        <div class="separator"></div>
+                        <h5 class="card-title text-center mb-3">Michael Chen</h5>
+                        <p class="card-text text-center">
+                            Creative UX/UI Designer specializing in modern web applications. 
+                            Dedicated to crafting beautiful and user-friendly digital experiences.
+                        </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Custom JavaScript -->
+    <script>
+        // Add click event listeners to buttons
+        document.addEventListener('DOMContentLoaded', function() {
+            const profileButtons = document.querySelectorAll('.btn-primary');
+            const contactButtons = document.querySelectorAll('.btn-outline-secondary');
+
+            profileButtons.forEach((btn, index) => {
+                btn.addEventListener('click', function() {
+                    const name = this.closest('.card').querySelector('.card-title').textContent;
+                    alert(`Viewing profile of ${name}`);
+                });
+            });
+
+            contactButtons.forEach((btn, index) => {
+                btn.addEventListener('click', function() {
+                    const name = this.closest('.card').querySelector('.card-title').textContent;
+                    alert(`Contacting ${name}`);
+                });
+            });
+
+            // Add smooth entrance animation
+            const cards = document.querySelectorAll('.card');
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px)';
+
+                setTimeout(() => {
+                    card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, index * 200);
+            });
+        });
+    </script>
+</body>
+</html>

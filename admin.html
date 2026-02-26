@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - ECAP</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <!-- Admin CSS -->
+    <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════
+     HEADER
+══════════════════════════════════════════════ -->
+<div class="header-section">
+    <h1 class="college-title">Admin Dashboard - ECAP</h1>
+</div>
+
+<!-- MARQUEE -->
+<div class="marquee-section">
+    <marquee behavior="scroll" direction="left" scrollamount="5" class="marquee-text">
+        Welcome to Admin Control Panel &nbsp;|&nbsp; Manage Students &amp; Faculty &nbsp;|&nbsp; ECAP - Educational College Automation Platform
+    </marquee>
+</div>
+
+<!-- ACTION BAR -->
+<div class="password-action-bar">
+    <div class="bar-left">
+        <i class="bi bi-shield-lock-fill me-2 text-primary"></i>
+        <span>Admin Control Panel</span>
+    </div>
+    <div class="bar-right">
+        <a href="index.html" class="password-link">
+            <i class="bi bi-box-arrow-right"></i> Logout
+        </a>
+    </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     CONTENT WRAPPER
+══════════════════════════════════════════════ -->
+<div class="content-wrapper">
+
+    <!-- SIDEBAR -->
+    <div class="sidebar-menu">
+        <div class="menu-header"><i class="bi bi-layout-sidebar-inset me-2"></i>MENU</div>
+        <ul class="menu-list">
+            <li><a href="#" class="menu-item active" data-section="dashboard">
+                <i class="bi bi-speedometer2 me-2"></i> Dashboard
+            </a></li>
+            <li><a href="#" class="menu-item" data-section="students">
+                <i class="bi bi-mortarboard-fill me-2"></i> Students
+            </a></li>
+            <li><a href="#" class="menu-item" data-section="faculty">
+                <i class="bi bi-person-badge-fill me-2"></i> Faculty
+            </a></li>
+        </ul>
+    </div>
+
+    <!-- MAIN PANEL -->
+    <div class="main-panel">
+
+        <!-- ────────────────────────────────
+             DASHBOARD SECTION
+        ──────────────────────────────────── -->
+        <div id="dashboardSection" class="admin-section">
+            <h4 class="section-title"><i class="bi bi-speedometer2 me-2"></i>Dashboard Overview</h4>
+            <div class="stats-grid">
+                <div class="stat-card stat-blue">
+                    <div class="stat-icon"><i class="bi bi-mortarboard-fill"></i></div>
+                    <div class="stat-info">
+                        <div class="stat-number" id="totalStudents">0</div>
+                        <div class="stat-label">Total Students</div>
+                    </div>
+                </div>
+                <div class="stat-card stat-green">
+                    <div class="stat-icon"><i class="bi bi-person-badge-fill"></i></div>
+                    <div class="stat-info">
+                        <div class="stat-number" id="totalFaculty">0</div>
+                        <div class="stat-label">Total Faculty</div>
+                    </div>
+                </div>
+                <div class="stat-card stat-orange">
+                    <div class="stat-icon"><i class="bi bi-building"></i></div>
+                    <div class="stat-info">
+                        <div class="stat-number" id="totalDepts">9</div>
+                        <div class="stat-label">Departments</div>
+                    </div>
+                </div>
+                <div class="stat-card stat-purple">
+                    <div class="stat-icon"><i class="bi bi-people-fill"></i></div>
+                    <div class="stat-info">
+                        <div class="stat-number" id="totalMembers">0</div>
+                        <div class="stat-label">Total Members</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Activity -->
+            <h4 class="section-title mt-4"><i class="bi bi-clock-history me-2"></i>Recent Additions</h4>
+            <div class="table-card">
+                <table class="admin-table" id="recentTable">
+                    <thead>
+                        <tr>
+                            <th>#</th><th>Name</th><th>ID / Roll No.</th>
+                            <th>Type</th><th>Department</th><th>Added On</th>
+                        </tr>
+                    </thead>
+                    <tbody id="recentTableBody">
+                        <tr><td colspan="6" class="text-center text-muted py-3">No records found.</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- ────────────────────────────────
+             STUDENTS SECTION
+        ──────────────────────────────────── -->
+        <div id="studentsSection" class="admin-section" style="display:none;">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h4 class="section-title mb-0"><i class="bi bi-mortarboard-fill me-2"></i>Students Management</h4>
+                <button class="btn btn-primary fw-bold" id="addStudentBtn">
+                    <i class="bi bi-plus-circle me-1"></i> Add Student
+                </button>
+            </div>
+
+            <!-- Dept Roll Info -->
+            <div class="roll-info-bar mb-3">
+                <strong>Roll Number Format per Department:</strong>
+                &nbsp;AIML: 6101+ &nbsp;|&nbsp; CSE: 7101+ &nbsp;|&nbsp; MECH: 8101+ &nbsp;|&nbsp;
+                ECE: 9101+ &nbsp;|&nbsp; EEE: 5101+ &nbsp;|&nbsp; CIVIL: 4101+ &nbsp;|&nbsp;
+                IT: 3101+ &nbsp;|&nbsp; MBA: 2101+ &nbsp;|&nbsp; MCA: 1101+
+            </div>
+
+            <!-- Search + Filter -->
+            <div class="filter-bar mb-3">
+                <input type="text" class="form-control filter-input" id="studentSearch" placeholder="Search by name or roll number...">
+                <select class="form-select filter-select" id="studentDeptFilter">
+                    <option value="">All Departments</option>
+                    <option>AIML</option><option>CSE</option><option>MECH</option>
+                    <option>ECE</option><option>EEE</option><option>CIVIL</option>
+                    <option>IT</option><option>MBA</option><option>MCA</option>
+                </select>
+            </div>
+
+            <div class="table-card">
+                <table class="admin-table" id="studentsTable">
+                    <thead>
+                        <tr>
+                            <th>#</th><th>Roll No.</th><th>Name</th><th>Department</th>
+                            <th>Gender</th><th>Mobile</th><th>Email</th><th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="studentsTableBody">
+                        <tr><td colspan="8" class="text-center text-muted py-3">No students added yet.</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- ────────────────────────────────
+             FACULTY SECTION
+        ──────────────────────────────────── -->
+        <div id="facultySection" class="admin-section" style="display:none;">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h4 class="section-title mb-0"><i class="bi bi-person-badge-fill me-2"></i>Faculty Management</h4>
+                <button class="btn btn-success fw-bold" id="addFacultyBtn">
+                    <i class="bi bi-plus-circle me-1"></i> Add Faculty
+                </button>
+            </div>
+
+            <!-- ID Info -->
+            <div class="roll-info-bar mb-3">
+                <strong>Faculty ID Format:</strong> T-000, T-001, T-002 ... (auto-generated)
+            </div>
+
+            <!-- Search + Filter -->
+            <div class="filter-bar mb-3">
+                <input type="text" class="form-control filter-input" id="facultySearch" placeholder="Search by name or faculty ID...">
+                <select class="form-select filter-select" id="facultyDeptFilter">
+                    <option value="">All Departments</option>
+                    <option>AIML</option><option>CSE</option><option>MECH</option>
+                    <option>ECE</option><option>EEE</option><option>CIVIL</option>
+                    <option>IT</option><option>MBA</option><option>MCA</option>
+                </select>
+            </div>
+
+            <div class="table-card">
+                <table class="admin-table" id="facultyTable">
+                    <thead>
+                        <tr>
+                            <th>#</th><th>Faculty ID</th><th>Name</th><th>Department</th>
+                            <th>Role</th><th>Mobile</th><th>Email</th><th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="facultyTableBody">
+                        <tr><td colspan="8" class="text-center text-muted py-3">No faculty added yet.</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div><!-- /main-panel -->
+</div><!-- /content-wrapper -->
+
+
+<!-- ═══════════════════════════════════════════
+     ADD STUDENT MODAL
+══════════════════════════════════════════════ -->
+<div class="modal fade" id="addStudentModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header admin-modal-header">
+                <h5 class="modal-title"><i class="bi bi-mortarboard-fill me-2"></i>Add New Student</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div id="stuFormError" class="alert alert-danger d-none" style="position:sticky;top:0;z-index:99;"></div>
+                <form id="addStudentForm" class="row g-3" novalidate>
+
+                    <div class="col-12"><div class="form-section-title">Personal Details</div></div>
+
+                    <div class="col-md-6">
+                        <label class="form-label">First Name <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="stuFName" placeholder="Enter first name" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Last Name <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="stuLName" placeholder="Enter last name" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Department <span class="text-danger">*</span></label>
+                        <select class="form-select" id="stuDept" required>
+                            <option value="">Choose department...</option>
+                            <option value="AIML">AIML (Roll starts: 6101)</option>
+                            <option value="CSE">CSE (Roll starts: 7101)</option>
+                            <option value="MECH">MECH (Roll starts: 8101)</option>
+                            <option value="ECE">ECE (Roll starts: 9101)</option>
+                            <option value="EEE">EEE (Roll starts: 5101)</option>
+                            <option value="CIVIL">CIVIL (Roll starts: 4101)</option>
+                            <option value="IT">IT (Roll starts: 3101)</option>
+                            <option value="MBA">MBA (Roll starts: 2101)</option>
+                            <option value="MCA">MCA (Roll starts: 1101)</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Roll Number</label>
+                        <input type="text" class="form-control" id="stuRoll" placeholder="Auto-generated on dept select" readonly>
+                        <div class="form-text text-primary fw-semibold" id="stuRollHint"></div>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Date of Birth <span class="text-danger">*</span></label>
+                        <input type="date" class="form-control" id="stuDOB" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Gender <span class="text-danger">*</span></label>
+                        <select class="form-select" id="stuGender" required>
+                            <option value="">Choose...</option>
+                            <option>Male</option><option>Female</option><option>Other</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Mobile Number <span class="text-danger">*</span></label>
+                        <input type="tel" class="form-control" id="stuMobile" placeholder="10-digit mobile" pattern="[0-9]{10}" maxlength="10" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Email <span class="text-danger">*</span></label>
+                        <input type="email" class="form-control" id="stuEmail" placeholder="Enter email" required>
+                    </div>
+                    <div class="col-12 mt-2"><div class="form-section-title">Academic Details</div></div>
+                    <div class="col-md-6">
+                        <label class="form-label">Year of Admission <span class="text-danger">*</span></label>
+                        <input type="number" class="form-control" id="stuAdmYear" placeholder="e.g. 2024" min="2000" max="2100" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Current Year <span class="text-danger">*</span></label>
+                        <select class="form-select" id="stuYear" required>
+                            <option value="">Choose...</option>
+                            <option>1st Year</option><option>2nd Year</option>
+                            <option>3rd Year</option><option>4th Year</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Section</label>
+                        <input type="text" class="form-control" id="stuSection" placeholder="e.g. A, B, C">
+                    </div>
+
+                    <div class="col-12 mt-2"><div class="form-section-title">Additional Details</div></div>
+                    <div class="col-md-6">
+                        <label class="form-label">Nationality</label>
+                        <input type="text" class="form-control" id="stuNationality" placeholder="e.g. Indian">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Religion</label>
+                        <input type="text" class="form-control" id="stuReligion" placeholder="e.g. Hindu">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Aadhar Number</label>
+                        <input type="text" class="form-control" id="stuAadhar" placeholder="12-digit Aadhar" maxlength="12">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">City</label>
+                        <input type="text" class="form-control" id="stuCity" placeholder="Enter city">
+                    </div>
+
+                    <div class="col-12 mt-2"><div class="form-section-title">Parent / Guardian Details</div></div>
+                    <div class="col-md-6">
+                        <label class="form-label">Parent / Guardian Name</label>
+                        <input type="text" class="form-control" id="stuParent" placeholder="Enter parent name">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Parent Mobile</label>
+                        <input type="tel" class="form-control" id="stuParentMobile" placeholder="10-digit mobile" maxlength="10">
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label">Address</label>
+                        <textarea class="form-control" id="stuAddress" rows="2" placeholder="Enter full address"></textarea>
+                    </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary fw-bold" id="saveStudentBtn">
+                    <i class="bi bi-save me-1"></i> Save Student
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     ADD FACULTY MODAL
+══════════════════════════════════════════════ -->
+<div class="modal fade" id="addFacultyModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header admin-modal-header-green">
+                <h5 class="modal-title"><i class="bi bi-person-badge-fill me-2"></i>Add New Faculty</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div id="facFormError" class="alert alert-danger d-none" style="position:sticky;top:0;z-index:99;"></div>
+                <form id="addFacultyForm" class="row g-3" novalidate>
+
+                    <div class="col-12"><div class="form-section-title">Personal Details</div></div>
+
+                    <div class="col-md-6">
+                        <label class="form-label">First Name <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="facFName" placeholder="Enter first name" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Last Name <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="facLName" placeholder="Enter last name" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Faculty ID</label>
+                        <input type="text" class="form-control" id="facId" placeholder="Auto-generated (T-000)" readonly>
+                        <div class="form-text text-success fw-semibold">ID is auto-generated in T-000 format</div>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Date of Birth <span class="text-danger">*</span></label>
+                        <input type="date" class="form-control" id="facDOB" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Department <span class="text-danger">*</span></label>
+                        <select class="form-select" id="facDept" required>
+                            <option value="">Choose department...</option>
+                            <option>AIML</option><option>CSE</option><option>MECH</option>
+                            <option>ECE</option><option>EEE</option><option>CIVIL</option>
+                            <option>IT</option><option>MBA</option><option>MCA</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Role <span class="text-danger">*</span></label>
+                        <select class="form-select" id="facRole" required>
+                            <option value="">Choose...</option>
+                            <option>Professor</option><option>Associate Professor</option>
+                            <option>Assistant Professor</option><option>Lecturer</option><option>HOD</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Gender <span class="text-danger">*</span></label>
+                        <select class="form-select" id="facGender" required>
+                            <option value="">Choose...</option>
+                            <option>Male</option><option>Female</option><option>Other</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Mobile Number <span class="text-danger">*</span></label>
+                        <input type="tel" class="form-control" id="facMobile" placeholder="10-digit mobile" pattern="[0-9]{10}" maxlength="10" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Email <span class="text-danger">*</span></label>
+                        <input type="email" class="form-control" id="facEmail" placeholder="Enter email" required>
+                    </div>
+                    <div class="col-12 mt-2"><div class="form-section-title">Additional Details</div></div>
+
+                    <div class="col-md-6">
+                        <label class="form-label">Nationality</label>
+                        <input type="text" class="form-control" id="facNationality" placeholder="e.g. Indian">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Religion</label>
+                        <input type="text" class="form-control" id="facReligion" placeholder="e.g. Hindu">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Aadhar Number</label>
+                        <input type="text" class="form-control" id="facAadhar" placeholder="12-digit Aadhar" maxlength="12">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">City</label>
+                        <input type="text" class="form-control" id="facCity" placeholder="Enter city">
+                    </div>
+
+                    <div class="col-12 mt-2"><div class="form-section-title">Qualification &amp; Experience</div></div>
+
+                    <div class="col-md-6">
+                        <label class="form-label">Highest Qualification</label>
+                        <select class="form-select" id="facQualification">
+                            <option value="">Choose...</option>
+                            <option>SSC</option><option>+2</option><option>UG</option>
+                            <option>PG</option><option>PhD</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Specialization</label>
+                        <input type="text" class="form-control" id="facSpecialization" placeholder="e.g. Machine Learning">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Experience (Years)</label>
+                        <input type="number" class="form-control" id="facExperience" placeholder="e.g. 5" min="0" max="60">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Previous College</label>
+                        <input type="text" class="form-control" id="facPrevCollege" placeholder="Enter previous institution">
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-success fw-bold" id="saveFacultyBtn">
+                    <i class="bi bi-save me-1"></i> Save Faculty
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     VIEW STUDENT MODAL
+══════════════════════════════════════════════ -->
+<div class="modal fade" id="viewStudentModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header admin-modal-header">
+                <h5 class="modal-title"><i class="bi bi-person-lines-fill me-2"></i>Student Details</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body" id="viewStudentBody"><!-- filled dynamically --></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     VIEW FACULTY MODAL
+══════════════════════════════════════════════ -->
+<div class="modal fade" id="viewFacultyModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header admin-modal-header-green">
+                <h5 class="modal-title"><i class="bi bi-person-badge-fill me-2"></i>Faculty Details</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body" id="viewFacultyBody"><!-- filled dynamically --></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     CONFIRM DELETE MODAL
+══════════════════════════════════════════════ -->
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title"><i class="bi bi-exclamation-triangle-fill me-2"></i>Confirm Delete</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p id="deleteConfirmMsg" class="mb-0 fs-6">Are you sure you want to remove this record? This action cannot be undone.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-danger fw-bold" id="confirmDeleteBtn">
+                    <i class="bi bi-trash3 me-1"></i> Delete
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="api.js"></script>
+
+<script>
+/* ═══════════════════════════════════════════════════════════════
+   ADMIN DASHBOARD — ECAP  (API-backed)
+═══════════════════════════════════════════════════════════════ */
+
+// ── Auth Guard ───────────────────────────────────────────────
+(function checkAuth() {
+    const token = Auth.getToken();
+    const user  = Auth.getUser();
+    if (!token || !user || user.role !== 'admin') {
+        alert('Session expired or not logged in. Please login again.');
+        window.location.href = 'index.html';
+    }
+})();
+
+// ── In-memory cache (loaded from API) ────────────────────────
+let allStudents = [];
+let allFaculty  = [];
+
+async function fetchStudents() {
+    try { allStudents = await ApiStudents.list(); }
+    catch (e) {
+        console.error('fetchStudents:', e.message);
+        allStudents = [];
+        if (e.message && e.message.toLowerCase().includes('unauthori')) {
+            alert('Session expired. Please login again.');
+            window.location.href = 'index.html';
+        }
+    }
+}
+async function fetchFaculty() {
+    try { allFaculty = await ApiFaculty.list(); }
+    catch (e) {
+        console.error('fetchFaculty:', e.message);
+        allFaculty = [];
+        if (e.message && e.message.toLowerCase().includes('unauthori')) {
+            alert('Session expired. Please login again.');
+            window.location.href = 'index.html';
+        }
+    }
+}
+
+// ── Sidebar navigation ────────────────────────────────────────
+const sections = ['dashboard', 'students', 'faculty'];
+document.querySelectorAll('.menu-item').forEach(item => {
+    item.addEventListener('click', async function(e) {
+        e.preventDefault();
+        const sec = this.dataset.section;
+        document.querySelectorAll('.menu-item').forEach(i => i.classList.remove('active'));
+        this.classList.add('active');
+        sections.forEach(s => {
+            document.getElementById(s + 'Section').style.display = (s === sec) ? 'block' : 'none';
+        });
+        if (sec === 'dashboard') await renderDashboard();
+        if (sec === 'students')  { await fetchStudents(); renderStudentsTable(allStudents); }
+        if (sec === 'faculty')   { await fetchFaculty();  renderFacultyTable(allFaculty); }
+    });
+});
+
+// ── DASHBOARD ─────────────────────────────────────────────────
+async function renderDashboard() {
+    await Promise.all([fetchStudents(), fetchFaculty()]);
+    document.getElementById('totalStudents').textContent = allStudents.length;
+    document.getElementById('totalFaculty').textContent  = allFaculty.length;
+    document.getElementById('totalMembers').textContent  = allStudents.length + allFaculty.length;
+
+    // Recent 8 entries combined
+    const allEntries = [
+        ...allStudents.map(s => ({ name: s.first_name + ' ' + s.last_name, id: s.roll_number, type: 'Student', dept: s.department, added: s.created_at })),
+        ...allFaculty.map(f  => ({ name: f.first_name + ' ' + f.last_name,  id: f.faculty_id,  type: 'Faculty', dept: f.department, added: f.created_at }))
+    ].sort((a, b) => new Date(b.added) - new Date(a.added)).slice(0, 8);
+
+    const tbody = document.getElementById('recentTableBody');
+    if (!allEntries.length) {
+        tbody.innerHTML = '<tr><td colspan="6" class="text-center text-muted py-3">No records found.</td></tr>';
+        return;
+    }
+    tbody.innerHTML = allEntries.map((e, i) => `
+        <tr>
+            <td>${i + 1}</td>
+            <td>${escHtml(e.name)}</td>
+            <td><span class="badge-id">${escHtml(e.id)}</span></td>
+            <td><span class="badge ${e.type === 'Student' ? 'badge-stu' : 'badge-fac'}">${e.type}</span></td>
+            <td>${escHtml(e.dept)}</td>
+            <td>${e.added ? new Date(e.added).toLocaleDateString('en-IN') : '-'}</td>
+        </tr>`).join('');
+}
+
+// ── STUDENTS TABLE ────────────────────────────────────────────
+function renderStudentsTable(arr) {
+    const tbody = document.getElementById('studentsTableBody');
+    if (!arr.length) {
+        tbody.innerHTML = '<tr><td colspan="8" class="text-center text-muted py-3">No students added yet.</td></tr>';
+        return;
+    }
+    tbody.innerHTML = arr.map((s, i) => `
+        <tr>
+            <td>${i + 1}</td>
+            <td><span class="badge-id">${escHtml(s.roll_number)}</span></td>
+            <td>${escHtml(s.first_name)} ${escHtml(s.last_name)}</td>
+            <td><span class="dept-badge">${escHtml(s.department)}</span></td>
+            <td>${escHtml(s.gender || '-')}</td>
+            <td>${escHtml(s.mobile || '-')}</td>
+            <td>${escHtml(s.email || '-')}</td>
+            <td>
+                <button class="btn btn-sm btn-outline-primary me-1" onclick="viewStudent('${escAttr(s.roll_number)}')">
+                    <i class="bi bi-eye"></i>
+                </button>
+                <button class="btn btn-sm btn-outline-danger" onclick="deleteStudent('${escAttr(s.roll_number)}')">
+                    <i class="bi bi-trash3"></i>
+                </button>
+            </td>
+        </tr>`).join('');
+}
+
+// ── FACULTY TABLE ─────────────────────────────────────────────
+function renderFacultyTable(arr) {
+    const tbody = document.getElementById('facultyTableBody');
+    if (!arr.length) {
+        tbody.innerHTML = '<tr><td colspan="8" class="text-center text-muted py-3">No faculty added yet.</td></tr>';
+        return;
+    }
+    tbody.innerHTML = arr.map((f, i) => `
+        <tr>
+            <td>${i + 1}</td>
+            <td><span class="badge-id">${escHtml(f.faculty_id)}</span></td>
+            <td>${escHtml(f.first_name)} ${escHtml(f.last_name)}</td>
+            <td><span class="dept-badge">${escHtml(f.department)}</span></td>
+            <td>${escHtml(f.role || '-')}</td>
+            <td>${escHtml(f.mobile || '-')}</td>
+            <td>${escHtml(f.email || '-')}</td>
+            <td>
+                <button class="btn btn-sm btn-outline-success me-1" onclick="viewFaculty('${escAttr(f.faculty_id)}')">
+                    <i class="bi bi-eye"></i>
+                </button>
+                <button class="btn btn-sm btn-outline-danger" onclick="deleteFaculty('${escAttr(f.faculty_id)}')">
+                    <i class="bi bi-trash3"></i>
+                </button>
+            </td>
+        </tr>`).join('');
+}
+
+// ── SEARCH / FILTER ───────────────────────────────────────────
+document.getElementById('studentSearch').addEventListener('input', filterStudents);
+document.getElementById('studentDeptFilter').addEventListener('change', filterStudents);
+
+function filterStudents() {
+    const q    = document.getElementById('studentSearch').value.toLowerCase().trim();
+    const dept = document.getElementById('studentDeptFilter').value;
+    let arr    = allStudents;
+    if (dept) arr = arr.filter(s => s.department === dept);
+    if (q)    arr = arr.filter(s =>
+        (s.first_name + ' ' + s.last_name).toLowerCase().includes(q) ||
+        String(s.roll_number).includes(q)
+    );
+    renderStudentsTable(arr);
+}
+
+document.getElementById('facultySearch').addEventListener('input', filterFaculty);
+document.getElementById('facultyDeptFilter').addEventListener('change', filterFaculty);
+
+function filterFaculty() {
+    const q    = document.getElementById('facultySearch').value.toLowerCase().trim();
+    const dept = document.getElementById('facultyDeptFilter').value;
+    let arr    = allFaculty;
+    if (dept) arr = arr.filter(f => f.department === dept);
+    if (q)    arr = arr.filter(f =>
+        (f.first_name + ' ' + f.last_name).toLowerCase().includes(q) ||
+        (f.faculty_id || '').toLowerCase().includes(q)
+    );
+    renderFacultyTable(arr);
+}
+
+// ── ADD STUDENT: auto-roll on dept change ─────────────────────
+document.getElementById('stuDept').addEventListener('change', async function () {
+    const dept = this.value;
+    if (!dept) {
+        document.getElementById('stuRoll').value = '';
+        document.getElementById('stuRollHint').textContent = '';
+        return;
+    }
+    try {
+        const res = await ApiStudents.nextRoll(dept);
+        document.getElementById('stuRoll').value = res.roll;
+        document.getElementById('stuRollHint').textContent = `Next available roll for ${dept}: ${res.roll}`;
+    } catch (e) {
+        document.getElementById('stuRollHint').textContent = 'Could not fetch roll number';
+    }
+});
+
+// Open modals
+document.getElementById('addStudentBtn').addEventListener('click', () => {
+    document.getElementById('addStudentForm').reset();
+    document.getElementById('stuRoll').value = '';
+    document.getElementById('stuRollHint').textContent = '';
+    document.getElementById('stuFormError').classList.add('d-none');
+    new bootstrap.Modal(document.getElementById('addStudentModal')).show();
+});
+
+document.getElementById('addFacultyBtn').addEventListener('click', async () => {
+    document.getElementById('addFacultyForm').reset();
+    document.getElementById('facFormError').classList.add('d-none');
+    try {
+        const res = await ApiFaculty.nextId();
+        document.getElementById('facId').value = res.id;
+    } catch (e) {
+        document.getElementById('facId').value = 'T-000';
+    }
+    new bootstrap.Modal(document.getElementById('addFacultyModal')).show();
+});
+
+// ── SAVE STUDENT ──────────────────────────────────────────────
+document.getElementById('saveStudentBtn').addEventListener('click', async function () {
+    const errEl = document.getElementById('stuFormError');
+    errEl.classList.add('d-none');
+
+    const fname  = document.getElementById('stuFName').value.trim();
+    const lname  = document.getElementById('stuLName').value.trim();
+    const dept   = document.getElementById('stuDept').value;
+    const dob    = document.getElementById('stuDOB').value;
+    const gender = document.getElementById('stuGender').value;
+    const mobile = document.getElementById('stuMobile').value.trim();
+    const email  = document.getElementById('stuEmail').value.trim();
+
+    if (!fname || !lname) { showErr(errEl, 'First name and last name are required.'); return; }
+    if (!dept)            { showErr(errEl, 'Please select a department.'); return; }
+    if (!dob)             { showErr(errEl, 'Date of birth is required.'); return; }
+    if (!gender)          { showErr(errEl, 'Please select gender.'); return; }
+    if (!/^\d{10}$/.test(mobile)) { showErr(errEl, 'Enter a valid 10-digit mobile number.'); return; }
+    if (!email)           { showErr(errEl, 'Email is required.'); return; }
+
+    this.disabled = true;
+    this.textContent = 'Saving...';
+
+    try {
+        const newStudent = await ApiStudents.add({
+            first_name:    fname,
+            last_name:     lname,
+            department:    dept,
+            date_of_birth: dob,
+            gender, mobile, email,
+            nationality:   (document.getElementById('stuNationality')?.value || '').trim(),
+            religion:      (document.getElementById('stuReligion')?.value || '').trim(),
+            aadhar_number: (document.getElementById('stuAadhar')?.value || '').trim(),
+            city:          (document.getElementById('stuCity')?.value || '').trim(),
+            admission_year: document.getElementById('stuAdmYear').value.trim(),
+            current_year:  document.getElementById('stuYear').value,
+            section:       document.getElementById('stuSection').value.trim(),
+            parent_name:   (document.getElementById('stuParent')?.value || '').trim(),
+            parent_mobile: (document.getElementById('stuParentMobile')?.value || '').trim(),
+            address:       (document.getElementById('stuAddress')?.value || '').trim()
+        });
+        await fetchStudents();
+        bootstrap.Modal.getInstance(document.getElementById('addStudentModal')).hide();
+        // Switch to students section so admin can see new entry
+        document.querySelectorAll('.menu-item').forEach(i => i.classList.remove('active'));
+        document.querySelector('[data-section="students"]').classList.add('active');
+        sections.forEach(s => {
+            document.getElementById(s + 'Section').style.display = (s === 'students') ? 'block' : 'none';
+        });
+        renderStudentsTable(allStudents);
+        showToast(`✓ Student added! Roll No: ${newStudent.roll_number} | Login Password: ${mobile}`, 'success');
+    } catch (err) {
+        showErr(errEl, err.message || 'Failed to add student.');
+    } finally {
+        this.disabled = false;
+        this.textContent = 'Save Student';
+    }
+});
+
+// ── SAVE FACULTY ──────────────────────────────────────────────
+document.getElementById('saveFacultyBtn').addEventListener('click', async function () {
+    const errEl = document.getElementById('facFormError');
+    errEl.classList.add('d-none');
+
+    const fname  = document.getElementById('facFName').value.trim();
+    const lname  = document.getElementById('facLName').value.trim();
+    const dob    = document.getElementById('facDOB').value;
+    const dept   = document.getElementById('facDept').value;
+    const role   = document.getElementById('facRole').value;
+    const gender = document.getElementById('facGender').value;
+    const mobile = document.getElementById('facMobile').value.trim();
+    const email  = document.getElementById('facEmail').value.trim();
+
+    if (!fname || !lname) { showErr(errEl, 'First name and last name are required.'); return; }
+    if (!dob)             { showErr(errEl, 'Date of birth is required.'); return; }
+    if (!dept)            { showErr(errEl, 'Please select a department.'); return; }
+    if (!role)            { showErr(errEl, 'Please select a role.'); return; }
+    if (!gender)          { showErr(errEl, 'Please select gender.'); return; }
+    if (!/^\d{10}$/.test(mobile)) { showErr(errEl, 'Enter a valid 10-digit mobile number.'); return; }
+    if (!email)           { showErr(errEl, 'Email is required.'); return; }
+
+    this.disabled = true;
+    this.textContent = 'Saving...';
+
+    try {
+        const newFaculty = await ApiFaculty.add({
+            first_name:            fname,
+            last_name:             lname,
+            department:            dept,
+            role,
+            date_of_birth:         dob,
+            gender, mobile, email,
+            nationality:           (document.getElementById('facNationality')?.value || '').trim(),
+            religion:              (document.getElementById('facReligion')?.value || '').trim(),
+            aadhar_number:         (document.getElementById('facAadhar')?.value || '').trim(),
+            city:                  (document.getElementById('facCity')?.value || '').trim(),
+            highest_qualification: document.getElementById('facQualification').value,
+            specialization:        document.getElementById('facSpecialization').value.trim(),
+            experience_years:      document.getElementById('facExperience').value.trim(),
+            previous_college:      document.getElementById('facPrevCollege').value.trim()
+        });
+        await fetchFaculty();
+        bootstrap.Modal.getInstance(document.getElementById('addFacultyModal')).hide();
+        // Switch to faculty section so admin can see new entry
+        document.querySelectorAll('.menu-item').forEach(i => i.classList.remove('active'));
+        document.querySelector('[data-section="faculty"]').classList.add('active');
+        sections.forEach(s => {
+            document.getElementById(s + 'Section').style.display = (s === 'faculty') ? 'block' : 'none';
+        });
+        renderFacultyTable(allFaculty);
+        showToast(`✓ Faculty added! ID: ${newFaculty.faculty_id} | Login Password: ${mobile}`, 'success');
+    } catch (err) {
+        showErr(errEl, err.message || 'Failed to add faculty.');
+    } finally {
+        this.disabled = false;
+        this.textContent = 'Save Faculty';
+    }
+});
+
+// ── VIEW STUDENT ──────────────────────────────────────────────
+async function viewStudent(roll) {
+    try {
+        const s = await ApiStudents.get(roll);
+        document.getElementById('viewStudentBody').innerHTML = buildDetailCard([
+            { label: 'Roll No.',        value: s.roll_number },
+            { label: 'First Name',      value: s.first_name },
+            { label: 'Last Name',       value: s.last_name },
+            { label: 'Department',      value: s.department },
+            { label: 'Date of Birth',   value: s.date_of_birth },
+            { label: 'Gender',          value: s.gender },
+            { label: 'Mobile',          value: s.mobile },
+            { label: 'Email',           value: s.email },
+            { label: 'Nationality',     value: s.nationality },
+            { label: 'Religion',        value: s.religion },
+            { label: 'Aadhar No.',      value: s.aadhar_number },
+            { label: 'City',            value: s.city },
+            { label: 'Admission Year',  value: s.admission_year },
+            { label: 'Current Year',    value: s.current_year },
+            { label: 'Section',         value: s.section },
+            { label: 'Parent Name',     value: s.parent_name },
+            { label: 'Parent Mobile',   value: s.parent_mobile },
+            { label: 'Address',         value: s.address },
+            { label: 'Added On',        value: s.created_at ? new Date(s.created_at).toLocaleString('en-IN') : '-' }
+        ]);
+        new bootstrap.Modal(document.getElementById('viewStudentModal')).show();
+    } catch (e) {
+        alert('Could not load student details: ' + e.message);
+    }
+}
+
+// ── VIEW FACULTY ──────────────────────────────────────────────
+async function viewFaculty(id) {
+    try {
+        const f = await ApiFaculty.get(id);
+        document.getElementById('viewFacultyBody').innerHTML = buildDetailCard([
+            { label: 'Faculty ID',      value: f.faculty_id },
+            { label: 'First Name',      value: f.first_name },
+            { label: 'Last Name',       value: f.last_name },
+            { label: 'Department',      value: f.department },
+            { label: 'Role',            value: f.role },
+            { label: 'Date of Birth',   value: f.date_of_birth },
+            { label: 'Gender',          value: f.gender },
+            { label: 'Mobile',          value: f.mobile },
+            { label: 'Email',           value: f.email },
+            { label: 'Nationality',     value: f.nationality },
+            { label: 'Religion',        value: f.religion },
+            { label: 'Aadhar No.',      value: f.aadhar_number },
+            { label: 'City',            value: f.city },
+            { label: 'Qualification',   value: f.highest_qualification },
+            { label: 'Specialization',  value: f.specialization },
+            { label: 'Experience',      value: f.experience_years ? f.experience_years + ' yrs' : '-' },
+            { label: 'Prev. College',   value: f.previous_college },
+            { label: 'Added On',        value: f.created_at ? new Date(f.created_at).toLocaleString('en-IN') : '-' }
+        ]);
+        new bootstrap.Modal(document.getElementById('viewFacultyModal')).show();
+    } catch (e) {
+        alert('Could not load faculty details: ' + e.message);
+    }
+}
+
+// ── DELETE ─────────────────────────────────────────────────────
+let pendingDeleteFn = null;
+
+function deleteStudent(roll) {
+    const s = allStudents.find(x => String(x.roll_number) === String(roll));
+    if (!s) return;
+    document.getElementById('deleteConfirmMsg').innerHTML =
+        `Are you sure you want to remove student <strong>${escHtml(s.first_name + ' ' + s.last_name)}</strong> (Roll: ${escHtml(String(s.roll_number))})? This action cannot be undone.`;
+    pendingDeleteFn = async () => {
+        try {
+            await ApiStudents.remove(roll);
+            await fetchStudents();
+            renderStudentsTable(allStudents);
+            showToast(`Student ${s.first_name} ${s.last_name} removed.`, 'danger');
+        } catch (e) { alert('Delete failed: ' + e.message); }
+    };
+    new bootstrap.Modal(document.getElementById('confirmDeleteModal')).show();
+}
+
+function deleteFaculty(id) {
+    const f = allFaculty.find(x => x.faculty_id === id);
+    if (!f) return;
+    document.getElementById('deleteConfirmMsg').innerHTML =
+        `Are you sure you want to remove faculty <strong>${escHtml(f.first_name + ' ' + f.last_name)}</strong> (ID: ${escHtml(id)})? This action cannot be undone.`;
+    pendingDeleteFn = async () => {
+        try {
+            await ApiFaculty.remove(id);
+            await fetchFaculty();
+            renderFacultyTable(allFaculty);
+            showToast(`Faculty ${f.first_name} ${f.last_name} removed.`, 'danger');
+        } catch (e) { alert('Delete failed: ' + e.message); }
+    };
+    new bootstrap.Modal(document.getElementById('confirmDeleteModal')).show();
+}
+
+document.getElementById('confirmDeleteBtn').addEventListener('click', async function () {
+    if (typeof pendingDeleteFn === 'function') {
+        await pendingDeleteFn();
+        pendingDeleteFn = null;
+    }
+    bootstrap.Modal.getInstance(document.getElementById('confirmDeleteModal')).hide();
+});
+
+// ── HELPERS ────────────────────────────────────────────────────
+function escHtml(str) {
+    return String(str || '-')
+        .replace(/&/g,'&amp;').replace(/</g,'&lt;')
+        .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+function escAttr(str) { return escHtml(str); }
+
+function showErr(el, msg) {
+    el.textContent = msg;
+    el.classList.remove('d-none');
+    el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+function buildDetailCard(fields) {
+    return `<div class="detail-grid">` +
+        fields.map(f => `
+            <div class="detail-field">
+                <span class="detail-label">${escHtml(f.label)}</span>
+                <span class="detail-value">${escHtml(f.value)}</span>
+            </div>`).join('') +
+        `</div>`;
+}
+
+// ── TOAST NOTIFICATIONS ───────────────────────────────────────
+function showToast(msg, type = 'success') {
+    let container = document.getElementById('toastContainer');
+    if (!container) {
+        container = document.createElement('div');
+        container.id = 'toastContainer';
+        container.style.cssText = 'position:fixed;bottom:24px;right:24px;z-index:9999;display:flex;flex-direction:column;gap:8px;';
+        document.body.appendChild(container);
+    }
+    const toast = document.createElement('div');
+    const bg    = type === 'success' ? '#198754' : '#dc3545';
+    const hasCredentials = type === 'success' && msg.includes('Password');
+    toast.style.cssText = `background:${bg};color:#fff;padding:12px 20px;border-radius:8px;font-weight:600;font-size:14px;
+        box-shadow:0 4px 16px rgba(0,0,0,0.18);max-width:${hasCredentials ? '420px' : '340px'};animation:fadeInUp .3s ease;`;
+    if (hasCredentials) {
+        // Split around the | to show on two lines
+        const parts = msg.split(' | ');
+        toast.innerHTML = `<i class="bi bi-check-circle me-2"></i>${escHtml(parts[0])}<br><small style="font-weight:400;opacity:.9;">${escHtml(parts.slice(1).join(' | '))}</small>`;
+    } else {
+        toast.innerHTML = `<i class="bi bi-${type === 'success' ? 'check-circle' : 'trash3'} me-2"></i>${escHtml(msg)}`;
+    }
+    container.appendChild(toast);
+    // Success toasts with credentials stay longer (8s), others 3.5s
+    const duration = (type === 'success' && msg.includes('Password')) ? 8000 : 3500;
+    setTimeout(() => toast.remove(), duration);
+}
+
+// ── INIT ───────────────────────────────────────────────────────
+renderDashboard();
+
+</script>
+
+<style>
+@keyframes fadeInUp {
+    from { opacity:0; transform:translateY(20px); }
+    to   { opacity:1; transform:translateY(0); }
+}
+</style>
+
+</body>
+</html>

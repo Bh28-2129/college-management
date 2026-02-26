@@ -1,0 +1,374 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #0f2027 0%, #203a43 40%, #2c5364 100%);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+}
+
+/* Main Card Wrapper */
+.main-card-wrapper {
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Main Content Card */
+.main-content-card {
+    width: 100%;
+    background: linear-gradient(160deg, #e8f0fe 0%, #ffffff 50%, #e3f2fd 100%);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+    overflow: hidden;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header Section - College Logo and Banner */
+.header-section {
+    width: 100%;
+    height: 140px;
+    background: white;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 2px solid #f0f0f0;
+    overflow: hidden;
+}
+
+.header-image {
+    width: 100%;
+    height: 90%;
+    object-fit: cover;
+}
+
+/* College Photo Section */
+.college-photo-section {
+    width: 100%;
+    height: 180px;
+    background: linear-gradient(135deg, #1a3a6b 0%, #1565c0 40%, #42a5f5 100%);
+    overflow: hidden;
+    border-bottom: 2px solid #f0f0f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.college-title {
+    font-size: 2.2rem;
+    font-weight: 800;
+    text-align: center;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin: 0;
+    background: linear-gradient(90deg, #ffffff 0%, #ffd54f 50%, #ffffff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: none;
+    filter: drop-shadow(0 2px 6px rgba(0,0,0,0.3));
+}
+
+.college-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Marquee Section - Moving Text */
+.marquee-section {
+    width: 100%;
+    height: 40px;
+    background: white;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    border-top: 0.5px solid #dedede;
+    border-bottom: 0.5px solid #dedcdc;
+}
+
+.marquee-content {
+    display: flex;
+    animation: marquee 30s linear infinite;
+    white-space: nowrap;
+    -webkit-animation: marquee 30s linear infinite;
+}
+
+.marquee-text {
+    color: blue;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 0 50px;
+    margin: 0;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+@keyframes marquee {
+    0% {
+        transform: translateX(100%);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+/* Login Container */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0;
+    padding: 35px 20px;
+    background: white;
+    flex-wrap: wrap;
+}
+
+/* Card Divider */
+.card-divider {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0 20px;
+    color: #aaa;
+    font-weight: 700;
+    font-size: 14px;
+    position: relative;
+}
+.card-divider::before,
+.card-divider::after {
+    content: '';
+    display: block;
+    width: 1px;
+    height: 60px;
+    background: #ddd;
+    margin: 8px 0;
+}
+
+/* Login Card */
+.login-card {
+    width: 360px;
+    background: white;
+    border-radius: 18px;
+    padding: 28px 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-top: 4px solid #4facfe;
+}
+.login-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.18);
+}
+
+/* Student card accent */
+.student-card {
+    border-top-color: #43e97b;
+}
+
+
+.card-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.card-header h3 {
+    color: #333;
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+.faculty-icon {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+.faculty-icon svg {
+    color: #4facfe;
+    width: 60px;
+    height: 60px;
+}
+
+.student-icon svg {
+    color: #43e97b;
+}
+
+/* Faculty button */
+.faculty-btn {
+    background: linear-gradient(90deg, #4facfe 0%, #00f2fe 100%);
+}
+.faculty-btn:hover {
+    background: linear-gradient(90deg, #00f2fe 0%, #4facfe 100%);
+    box-shadow: 0 5px 15px rgba(79, 172, 254, 0.4);
+}
+
+/* Student button */
+.student-btn {
+    background: linear-gradient(90deg, #43e97b 0%, #38f9d7 100%);
+}
+.student-btn:hover {
+    background: linear-gradient(90deg, #38f9d7 0%, #43e97b 100%);
+    box-shadow: 0 5px 15px rgba(67, 233, 123, 0.4);
+}
+
+/* Form Styles */
+.login-form {
+    width: 100%;
+}
+
+.form-label {
+    color: #555;
+    font-weight: 600;
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.form-control {
+    height: 40px;
+    border-radius: 8px;
+    border: 2px solid #e0e0e0;
+    padding: 8px 12px;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus {
+    border-color: #4facfe;
+    box-shadow: 0 0 0 0.2rem rgba(79, 172, 254, 0.25);
+}
+
+.login-btn {
+    width: 100%;
+    height: 42px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 700;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transform: translateY(0);
+}
+
+
+/* Footer */
+.footer {
+    width: 100%;
+    background: linear-gradient(90deg, #00f2fe 0%, #4facfe 100%);
+    color: blue;
+    padding: 12px;
+    margin-top: auto;
+   
+}
+
+.footer-content {
+    text-align: center;
+}
+
+.footer-content p {
+    font-size: 12px;
+    line-height: 1.4;
+    opacity: 0.9;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    body {
+        padding: 0;
+    }
+    
+    .main-content-card {
+        border-radius: 0;
+    }
+    
+    .header-section {
+        height: 200px;
+    }
+    
+    .logo-container {
+        width: 80px;
+        height: 80px;
+        left: 10px;
+    }
+    
+    .college-photo-section {
+        height: 200px;
+    }
+    
+    .marquee-text {
+        font-size: 16px;
+    }
+    
+    .login-card {
+        width: 90%;
+        padding: 30px 20px;
+    }
+    
+    .card-divider {
+        flex-direction: row;
+        padding: 10px 0;
+    }
+    .card-divider::before,
+    .card-divider::after {
+        width: 60px;
+        height: 1px;
+        margin: 0 8px;
+    }
+    
+    .card-header h3 {
+        font-size: 24px;
+    }
+    
+    .faculty-icon svg {
+        width: 60px;
+        height: 60px;
+    }
+}
+
+@media (max-width: 480px) {
+    .header-section {
+        height: 150px;
+    }
+    
+    .logo-container {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .college-photo-section {
+        height: 150px;
+    }
+    
+    .marquee-section {
+        height: 50px;
+    }
+    
+    .marquee-text {
+        font-size: 14px;
+    }
+    
+    .form-control {
+        height: 45px;
+    }
+    
+    .login-btn {
+        height: 45px;
+        font-size: 16px;
+    }
+}

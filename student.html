@@ -1,0 +1,1319 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard - College Automation System</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css"><!-- reuse card styles from index -->
+    <link rel="stylesheet" href="faculty.css">
+</head>
+<body>
+    <!-- Full-page layout: remove card wrappers -->
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Faculty Title Section -->
+        <div class="header-section">
+            <h1 class="college-title">Student Dashboard - ECAP</h1>
+        </div>
+
+        <!-- Moving Text Section (Marquee) -->
+        <div class="marquee-section">
+            <marquee behavior="scroll" direction="left" scrollamount="5" class="marquee-text">
+                Welcome to Student Dashboard &nbsp;&nbsp;|&nbsp;&nbsp; College Automation System &nbsp;&nbsp;|&nbsp;&nbsp; Manage Your Academic Progress Efficiently &nbsp;&nbsp;|&nbsp;&nbsp; ECAP - Educational College Automation Platform
+            </marquee>
+        </div>
+
+        <!-- Password Action Bar -->
+        <div class="password-action-bar">
+            <div class="bar-left">
+                <span class="principal-name">Student Dashboard</span>
+            </div>
+            <div class="bar-right">
+                <button class="password-link btn btn-link p-0 me-3" id="changePasswordBtn" style="text-decoration:none;">
+                    <i class="bi bi-key-fill"></i> Change Password
+                </button>
+                <a href="index.html" class="password-link">
+                    <i class="bi bi-box-arrow-right"></i> Logout
+                </a>
+            </div>
+        </div>
+
+        <!-- Main Content Area with Sidebar -->
+        <div class="content-wrapper">
+            <!-- Sidebar Menu -->
+            <div class="sidebar-menu">
+                <div class="menu-header">
+                    MENU
+                </div>
+                <ul class="menu-list">
+                    <li>
+                        <a href="#" class="menu-item active">
+                            <i class="bi bi-person-lines-fill me-1"></i> Profile
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="menu-item">
+                            <i class="bi bi-cash-coin me-1"></i> Fee Payment
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="menu-item">
+                            <i class="bi bi-clipboard-check-fill me-1"></i> Attendance
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="menu-item">
+                            <i class="bi bi-calendar-week-fill me-1"></i> Timetable
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="menu-item">
+                            <i class="bi bi-journal-text me-1"></i> Marks
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Main Panel -->
+            <div class="main-panel">
+                <div class="container py-3">
+
+                    <!-- ===== PROFILE SECTION ===== -->
+                    <div id="profileSection" class="mb-4">
+
+                        <!-- Add Details Button -->
+                        <div class="d-flex justify-content-end mb-3">
+                            <button id="addDetailsBtn" class="btn btn-primary fw-bold">
+                                <i class="bi bi-plus-circle me-1"></i> Add Details
+                            </button>
+                        </div>
+
+                        <!-- Profile Display -->
+                        <div class="profile-card" id="profileDisplay">
+                            <div class="profile-section-title">Personal Details</div>
+                            <div class="profile-grid">
+                                <div class="profile-field"><span class="profile-label">First Name</span><span id="profileFName">-</span></div>
+                                <div class="profile-field"><span class="profile-label">Last Name</span><span id="profileLName">-</span></div>
+                                <div class="profile-field"><span class="profile-label">DOB</span><span id="profileDOB">-</span></div>
+                                <div class="profile-field"><span class="profile-label">Faculty ID</span><span id="profileFacultyId">-</span></div>
+                                <div class="profile-field"><span class="profile-label">Branch</span><span id="profileBranch">-</span></div>
+                                <div class="profile-field"><span class="profile-label">Role</span><span id="profileRole">-</span></div>
+                                <div class="profile-field"><span class="profile-label">Gender</span><span id="profileGender">-</span></div>
+                                <div class="profile-field"><span class="profile-label">Nationality</span><span id="profileNationality">-</span></div>
+                                <div class="profile-field"><span class="profile-label">Religion</span><span id="profileReligion">-</span></div>
+                                <div class="profile-field"><span class="profile-label">Mobile</span><span id="profileMobile">-</span></div>
+                                <div class="profile-field"><span class="profile-label">Email</span><span id="profileEmail">-</span></div>
+                                <div class="profile-field"><span class="profile-label">Aadhar No.</span><span id="profileAadhar">-</span></div>
+                                <div class="profile-field"><span class="profile-label">City</span><span id="profileCity">-</span></div>
+                            </div>
+
+                            <div class="profile-section-title mt-3">Academic Qualifications</div>
+                            <table class="profile-table stacked" id="qualificationsTable">
+                                <thead><tr><th>Qualification</th><th>From Year</th><th>To Year</th><th>Certificate Type</th><th>Certificate File</th></tr></thead>
+                                <tbody></tbody>
+                            </table>
+
+                        </div>
+
+                        <!-- Add Details Form (hidden by default) -->
+                        <div id="detailsCard" class="card glass-card mx-auto mt-3" style="max-width:900px;display:none;">
+                            <div class="card-header fw-bold"><i class="bi bi-person-fill me-2"></i>Add Faculty Details</div>
+                            <div class="card-body">
+                                <form id="facultyDetailsForm" class="row g-3">
+
+                                    <div class="col-12"><div class="form-section-title">Personal Details</div></div>
+
+                                    <div class="col-md-6">
+                                        <label class="form-label">First Name <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" id="personFName" placeholder="Enter first name" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">Last Name <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" id="personLName" placeholder="Enter last name" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">Date of Birth <span class="text-danger">*</span></label>
+                                        <input type="date" class="form-control" id="dob" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">Faculty ID <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" id="facultyId" placeholder="e.g. FAC001" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">Branch <span class="text-danger">*</span></label>
+                                        <select class="form-select" id="branch" required>
+                                            <option value="">Choose...</option>
+                                            <option>CSE</option><option>ECE</option><option>EEE</option>
+                                            <option>MECH</option><option>CIVIL</option><option>IT</option>
+                                            <option>MBA</option><option>MCA</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">Role <span class="text-danger">*</span></label>
+                                        <select class="form-select" id="role" required>
+                                            <option value="">Choose...</option>
+                                            <option>Professor</option><option>Associate Professor</option>
+                                            <option>Assistant Professor</option><option>Lecturer</option><option>HOD</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">Gender <span class="text-danger">*</span></label>
+                                        <select class="form-select" id="gender" required>
+                                            <option value="">Choose...</option>
+                                            <option>Male</option><option>Female</option><option>Other</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">Nationality</label>
+                                        <input type="text" class="form-control" id="nationality" placeholder="e.g. Indian">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">Religion</label>
+                                        <input type="text" class="form-control" id="religion" placeholder="Enter religion">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">Mobile Number <span class="text-danger">*</span></label>
+                                        <input type="tel" class="form-control" id="mobile" placeholder="10-digit mobile" pattern="[0-9]{10}" maxlength="10" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">Email <span class="text-danger">*</span></label>
+                                        <input type="email" class="form-control" id="email" placeholder="Enter email" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">Aadhar No.</label>
+                                        <input type="text" class="form-control" id="aadhar" placeholder="12-digit Aadhar" maxlength="12">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">City</label>
+                                        <input type="text" class="form-control" id="city" placeholder="Enter city">
+                                    </div>
+
+                                    <div class="col-12 mt-2"><div class="form-section-title">Academic Qualifications</div></div>
+                                    <div id="qualificationsContainer">
+                                        <div class="qualification-entry" data-entry="0">
+                                            <div class="col-12">
+                                                <label class="form-label">Select Qualification</label>
+                                                <select class="form-select qualification-select" id="qualification-0">
+                                                    <option value="">Choose...</option>
+                                                    <option value="ssc">SSC</option><option value="plus2">+2</option>
+                                                    <option value="ug">UG</option><option value="pg">PG</option><option value="phd">PhD</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-12 qualification-heading" style="display:none;">
+                                                <h5 class="mt-3 mb-2" style="color:#667eea;font-weight:600;"></h5>
+                                            </div>
+                                            <div class="qual-details-section" style="display:none;">
+                                                <div class="col-12">
+                                                    <label class="form-label">From Year</label>
+                                                    <input type="number" class="form-control qual-from-date" id="qualFrom-0" min="1950" max="2100" placeholder="e.g., 2020">
+                                                </div>
+                                                <div class="col-12">
+                                                    <label class="form-label">To Year</label>
+                                                    <input type="number" class="form-control qual-to-date" id="qualTo-0" min="1950" max="2100" placeholder="e.g., 2024">
+                                                </div>
+                                                <div class="col-12">
+                                                    <label class="form-label">Certificate Type</label>
+                                                    <select class="form-select cert-type-select" id="certType-0">
+                                                        <option value="">Choose...</option>
+                                                        <option value="memo">Memo</option><option value="certificate">Certificate</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 upload-section" style="display:none;">
+                                                <label class="form-label">Upload Certificate</label>
+                                                <input type="file" class="form-control qualification-file" id="qualificationFile-0" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 d-flex gap-2 mt-2">
+                                        <button type="submit" class="btn btn-primary"><i class="bi bi-save me-1"></i>Submit</button>
+                                        <button type="reset" class="btn btn-secondary">Reset</button>
+                                        <button type="button" id="cancelDetailsBtn" class="btn btn-outline-danger">Cancel</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ===== FEE PAYMENT SECTION ===== -->
+                    <div id="feePaymentSection" style="display:none;">
+                        <div class="card glass-card mx-auto" style="max-width:700px;">
+                            <div class="card-header fw-bold"><i class="bi bi-cash-coin me-2"></i>Fee Payment</div>
+                            <div class="card-body">
+
+                                <div class="mb-3">
+                                    <label class="form-label fw-semibold">Student ID <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="feeStudentId" placeholder="Enter your Student ID">
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label fw-semibold">Student Name <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="feeStudentName" placeholder="Enter your name">
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label fw-semibold">Fee Type <span class="text-danger">*</span></label>
+                                    <select class="form-select" id="feeType">
+                                        <option value="">-- Select Fee Type --</option>
+                                        <option value="Tuition Fee">Tuition Fee</option>
+                                        <option value="Hostel Fee">Hostel Fee</option>
+                                        <option value="Exam Fee">Exam Fee</option>
+                                        <option value="Library Fee">Library Fee</option>
+                                        <option value="Transport Fee">Transport Fee</option>
+                                        <option value="Miscellaneous">Miscellaneous</option>
+                                    </select>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label fw-semibold">Amount (₹) <span class="text-danger">*</span></label>
+                                    <input type="number" class="form-control" id="feeAmount" placeholder="Enter amount" min="1">
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label fw-semibold">Payment Method <span class="text-danger">*</span></label>
+                                    <div class="d-flex gap-4 flex-wrap">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="paymentMethod" id="payOnline" value="Online">
+                                            <label class="form-check-label" for="payOnline">Online (UPI / Net Banking)</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3" id="feeReferenceRow" style="display:none;">
+                                    <label class="form-label fw-semibold">Transaction / Reference No.</label>
+                                    <input type="text" class="form-control" id="feeReferenceNo" placeholder="Enter transaction or reference number">
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label fw-semibold">Upload Receipt (optional)</label>
+                                    <input type="file" class="form-control" id="feeReceiptFile" accept=".pdf,.jpg,.jpeg,.png">
+                                </div>
+
+                                <button type="button" class="btn btn-success fw-bold px-4" id="feePayBtn">
+                                    <i class="bi bi-send-check me-1"></i> Submit Payment
+                                </button>
+
+                                <div id="feeSuccessMsg" class="alert alert-success mt-3 fw-semibold" style="display:none;"></div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ===== ATTENDANCE SECTION ===== -->
+                    <div id="attendanceSection" style="display:none;">
+                        <div class="card glass-card mx-auto" style="max-width:800px;">
+                            <div class="card-header fw-bold d-flex justify-content-between align-items-center">
+                                <span><i class="bi bi-clipboard-data me-2"></i>My Attendance</span>
+                                <span class="badge bg-secondary fw-normal small" id="attDateLabel"></span>
+                            </div>
+                            <div class="card-body">
+                                <div class="d-flex align-items-center gap-3 mb-3">
+                                    <span class="fw-semibold">Overall Attendance:</span>
+                                    <span id="attOverallBadge" class="badge fs-6 px-3 py-2"></span>
+                                </div>
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-hover align-middle mb-0">
+                                        <thead class="table-dark">
+                                            <tr>
+                                                <th class="text-center" style="width:55px;">S.No</th>
+                                                <th>Date</th>
+                                                <th class="text-center">Section</th>
+                                                <th class="text-center">Total</th>
+                                                <th class="text-center">Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="attTableBody"></tbody>
+                                        <tfoot id="attTableFoot"></tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ===== TIMETABLE SECTION ===== -->
+                    <div id="timetableSection" style="display:none;">
+                        <div class="card glass-card mx-auto mb-4" style="max-width:1000px;">
+                            <div class="card-header fw-bold">
+                                <i class="bi bi-calendar-week-fill me-2"></i>Class Timetable
+                                <span id="ttHeaderLabel" class="float-end fw-normal text-muted small">– Academic Year 2025–26</span>
+                            </div>
+                            <div class="card-body p-2">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-hover align-middle text-center mb-0" id="ttTable">
+                                        <thead class="table-dark">
+                                            <tr>
+                                                <th style="min-width:90px;">Period</th>
+                                                <th style="min-width:105px;">Time</th>
+                                                <th>Mon</th>
+                                                <th>Tue</th>
+                                                <th>Wed</th>
+                                                <th>Thu</th>
+                                                <th>Fri</th>
+                                                <th>Sat</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="ttBody"></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card glass-card mx-auto" style="max-width:1000px;">
+                            <div class="card-header fw-bold">
+                                <i class="bi bi-person-badge-fill me-2"></i>Subject &ndash; Faculty Details
+                            </div>
+                            <div class="card-body p-2">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-striped align-middle mb-0">
+                                        <thead class="table-dark">
+                                            <tr>
+                                                <th class="text-center" style="width:55px;">S.No</th>
+                                                <th>Subject Name</th>
+                                                <th>Faculty Name</th>
+                                                <th>Designation</th>
+                                                <th>Email</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="ttFacultyBody"></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ===== MARKS SECTION ===== -->
+                    <div id="marksSection" style="display:none;">
+                        <!-- Semester Results Card -->
+                        <div class="card glass-card mx-auto mb-4" style="max-width:1050px;">
+                            <div class="card-header fw-bold">
+                                <i class="bi bi-journal-check me-2"></i>Semester-wise Exam Results
+                                <span id="marksHeaderLabel" class="float-end fw-normal text-muted small"></span>
+                            </div>
+                            <div class="card-body">
+                                <ul class="nav nav-tabs mb-3" id="semesterTabs" role="tablist"></ul>
+                                <div class="tab-content" id="semesterTabContent"></div>
+                            </div>
+                        </div>
+                        <!-- Internal / Uploaded Marks Card -->
+                        <div class="card glass-card mx-auto" style="max-width:1050px;" id="internalMarksCard">
+                            <div class="card-header fw-bold">
+                                <i class="bi bi-clipboard2-data-fill me-2"></i>Internal Marks (Uploaded by Faculty)
+                            </div>
+                            <div class="card-body">
+                                <ul class="nav nav-tabs mb-3" id="internalMarksTabs" role="tablist"></ul>
+                                <div class="tab-content" id="internalMarksContent"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- API Helper -->
+    <script src="api.js"></script>
+    <!-- Custom JavaScript -->
+    <script src="principal-dashboard.js"></script>
+    <script>
+    // ── Auth Guard ────────────────────────────────────────────
+    (function checkAuth() {
+        const token = Auth.getToken();
+        const user  = Auth.getUser();
+        if (!token || !user || user.role !== 'student') {
+            window.location.href = 'index.html';
+        }
+    })();
+
+    document.addEventListener('DOMContentLoaded', function () {
+
+        // â”€â”€ SIDEBAR NAVIGATION â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+        const menuItems           = document.querySelectorAll('.menu-item');
+        const profileSection      = document.getElementById('profileSection');
+        const feePaymentSection   = document.getElementById('feePaymentSection');
+        const attendanceSection   = document.getElementById('attendanceSection');
+        const timetableSection    = document.getElementById('timetableSection');
+        const marksSection        = document.getElementById('marksSection');
+
+        function showSection(name) {
+            profileSection.style.display     = (name === 'profile')     ? 'block' : 'none';
+            feePaymentSection.style.display   = (name === 'feepayment')  ? 'block' : 'none';
+            attendanceSection.style.display   = (name === 'attendance')  ? 'block' : 'none';
+            timetableSection.style.display    = (name === 'timetable')   ? 'block' : 'none';
+            marksSection.style.display        = (name === 'marks')       ? 'block' : 'none';
+        }
+
+        menuItems.forEach(item => {
+            item.addEventListener('click', function (e) {
+                e.preventDefault();
+                menuItems.forEach(m => m.classList.remove('active'));
+                this.classList.add('active');
+                const text = this.textContent.trim().toLowerCase();
+                if (text.includes('profile'))         showSection('profile');
+                else if (text.includes('fee'))        showSection('feepayment');
+                else if (text.includes('attendance')) showSection('attendance');
+                else if (text.includes('timetable'))  showSection('timetable');
+                else if (text.includes('marks'))      showSection('marks');
+            });
+        });
+
+        // ── DEPT → YEAR → SUBJECTS MAP ────────────────────────────────
+        const DEPT_SUBJECTS = {
+            CSE:   {
+                1: ['Engineering Maths I',  'Engineering Physics',   'C Programming',         'Digital Logic Design',   'English Communication', 'Intro to Computers'],
+                2: ['Engineering Maths II', 'Data Structures',       'Computer Organization', 'Discrete Mathematics',   'Engineering Chemistry', 'Environmental Science'],
+                3: ['OOP (Java/C++)',        'Computer Networks',     'Operating Systems',     'Database Management',    'Mathematics III',       'Software Engineering'],
+                4: ['Design of Algorithms', 'Theory of Computation', 'Web Technologies',      'Microprocessors',        'Computer Graphics',     'Professional Ethics']
+            },
+            ECE:   {
+                1: ['Engineering Maths I',  'Engineering Physics',   'C Programming',         'Basic Electronics',      'English Communication', 'Engineering Drawing'],
+                2: ['Engineering Maths II', 'Network Analysis',      'Digital Electronics',   'Electromagnetic Theory', 'Engineering Chemistry', 'Environmental Science'],
+                3: ['Signals & Systems',    'Analog Communications', 'VLSI Design',           'Control Systems',        'Microprocessors',       'DSP'],
+                4: ['Digital Comms.',       'Embedded Systems',      'Wireless Communication','Optical Fiber Comm.',    'RF & Microwave Engg.',  'Professional Ethics']
+            },
+            MECH:  {
+                1: ['Engineering Maths I',  'Engineering Physics',   'Engineering Drawing',   'Basic Mech. Engg.',      'English Communication', 'Environmental Science'],
+                2: ['Engineering Maths II', 'Thermodynamics',        'Fluid Mechanics',       'Mfg. Processes',         'Engineering Chemistry', 'Strength of Materials I'],
+                3: ['SOM II',               'Kinematics of Machinery','Heat Transfer',         'Machine Design',         'Industrial Engineering','Metrology'],
+                4: ['CAD/CAM',              'Finite Element Analysis','Refrigeration & AC',   'Power Plant Engg.',      'Robotics',              'Professional Ethics']
+            },
+            CIVIL: {
+                1: ['Engineering Maths I',  'Engineering Physics',   'Engineering Drawing',   'Basic Civil Engg.',      'English Communication', 'Environmental Science'],
+                2: ['Engineering Maths II', 'Surveying',             'Engineering Geology',   'Building Materials',     'Engineering Chemistry', 'Strength of Materials I'],
+                3: ['Structural Analysis',  'Fluid Mechanics',       'Transportation Engg.',  'Geotechnical Engg.',     'Concrete Technology',   'Environmental Engg.'],
+                4: ['Design of Structures', 'Irrigation & Water Supply','Foundation Engg.',  'Project Management',     'Earthquake Engineering','Professional Ethics']
+            },
+            MBA:   {
+                1: ['Principles of Mgmt.',  'Business Economics',    'Business Statistics',   'Financial Accounting',   'Marketing Management',  'IT for Business'],
+                2: ['HR Management',        'Financial Management',  'Operations Management', 'Business Research',      'Strategic Management',  'Business Communication'],
+                3: ['Entrepreneurship',     'Supply Chain Mgmt.',    'Int. Business Mgmt.',   'Marketing Strategy',     'Business Analytics',    'Corporate Law'],
+                4: ['Project Management',   'Corporate Governance',  'Digital Marketing',     'Org. Behavior',          'Total Quality Mgmt.',   'Elective Paper']
+            }
+        };
+
+        const PERIOD_TIMES = ['9:00–9:55','9:55–10:50','11:05–12:00','12:00–12:55','1:45–2:40','2:40–3:35','3:35–4:30'];
+        const ROMAN_NUM    = ['I','II','III','IV','V','VI','VII'];
+        const TT_DAYS      = ['mon','tue','wed','thu','fri','sat'];
+        const TT_PALETTE   = ['table-primary','table-info','table-success','table-warning','table-secondary','table-danger','table-light'];
+
+        function buildTimetable(subjectList) {
+            const colorMap = {};
+            subjectList.forEach((s, i) => { colorMap[s] = TT_PALETTE[i % TT_PALETTE.length]; });
+            const schedule = PERIOD_TIMES.map((_, p) =>
+                TT_DAYS.map((_, d) => subjectList[(p + d * 2) % subjectList.length])
+            );
+            return { schedule, colorMap };
+        }
+
+        function renderTimetable(dept, year) {
+            const yearLabel = ['','I','II','III','IV'][year] || String(year);
+            const subjectList = (DEPT_SUBJECTS[dept] || DEPT_SUBJECTS['CSE'])[year] || DEPT_SUBJECTS['CSE'][1];
+            const { schedule, colorMap } = buildTimetable(subjectList);
+            const ttHeaderLbl = document.getElementById('ttHeaderLabel');
+            if (ttHeaderLbl) ttHeaderLbl.textContent = yearLabel + ' Year – ' + (dept || 'N/A') + ' | Academic Year 2025–26';
+            const tbody = document.getElementById('ttBody');
+            tbody.innerHTML = '';
+            PERIOD_TIMES.forEach((time, p) => {
+                const tr = document.createElement('tr');
+                tr.innerHTML =
+                    '<td class="fw-bold">' + ROMAN_NUM[p] + '</td>' +
+                    '<td class="text-muted small">' + time + '</td>' +
+                    TT_DAYS.map((_, d) =>
+                        '<td class="' + (colorMap[schedule[p][d]] || '') + ' small fw-semibold">' + schedule[p][d] + '</td>'
+                    ).join('');
+                tbody.appendChild(tr);
+            });
+            // Async: fetch faculty for this dept and populate the Subject-Faculty table
+            const fb = document.getElementById('ttFacultyBody');
+            fb.innerHTML = '<tr><td colspan="5" class="text-center text-muted py-2"><span class="spinner-border spinner-border-sm me-1"></span>Loading faculty…</td></tr>';
+            ApiFaculty.byDept(dept)
+                .then(facList => {
+                    fb.innerHTML = '';
+                    subjectList.forEach((sub, i) => {
+                        const fac = (facList && facList.length) ? facList[i % facList.length] : null;
+                        const name  = fac ? (fac.first_name || '') + ' ' + (fac.last_name || '') : '—';
+                        const role  = fac ? (fac.role || '—') : '—';
+                        const email = fac ? (fac.email || '—') : '—';
+                        const spec  = fac ? (fac.specialization ? '<br><small class="text-muted">' + fac.specialization + '</small>' : '') : '';
+                        const tr = document.createElement('tr');
+                        tr.innerHTML =
+                            '<td class="text-center">' + (i + 1) + '</td>' +
+                            '<td class="fw-semibold">' + sub + '</td>' +
+                            '<td>' + name.trim() + spec + '</td>' +
+                            '<td><span class="badge bg-primary bg-opacity-75 fw-normal">' + role + '</span></td>' +
+                            '<td>' + (email !== '—' ? '<a href="mailto:' + email + '">' + email + '</a>' : '—') + '</td>';
+                        fb.appendChild(tr);
+                    });
+                })
+                .catch(() => {
+                    fb.innerHTML = '';
+                    subjectList.forEach((sub, i) => {
+                        const tr = document.createElement('tr');
+                        tr.innerHTML =
+                            '<td class="text-center">' + (i + 1) + '</td>' +
+                            '<td class="fw-semibold">' + sub + '</td>' +
+                            '<td class="text-muted">—</td>' +
+                            '<td><span class="badge bg-secondary fw-normal">—</span></td>' +
+                            '<td class="text-muted">—</td>';
+                        fb.appendChild(tr);
+                    });
+                });
+        }
+
+        // ── FULL 8-SEMESTER CURRICULUM PER DEPT ──────────────────────
+        const DEPT_CURRICULUM = {
+            CSE: [
+                { sem:1, year:'I',   courses:[{code:'CS101',name:'Engineering Mathematics I',cr:4},{code:'CS102',name:'Engineering Physics',cr:3},{code:'CS103',name:'C Programming',cr:4},{code:'CS104',name:'Digital Logic Design',cr:3},{code:'CS105',name:'English Communication',cr:2},{code:'CS106',name:'Engineering Drawing',cr:2}]},
+                { sem:2, year:'I',   courses:[{code:'CS201',name:'Engineering Mathematics II',cr:4},{code:'CS202',name:'Data Structures',cr:4},{code:'CS203',name:'Computer Organization',cr:3},{code:'CS204',name:'Discrete Mathematics',cr:3},{code:'CS205',name:'Engineering Chemistry',cr:3},{code:'CS206',name:'Environmental Science',cr:2}]},
+                { sem:3, year:'II',  courses:[{code:'CS301',name:'Mathematics III',cr:3},{code:'CS302',name:'Object Oriented Programming',cr:4},{code:'CS303',name:'Computer Networks',cr:3},{code:'CS304',name:'Operating Systems',cr:3},{code:'CS305',name:'Database Management Systems',cr:3},{code:'CS306',name:'Software Engineering',cr:3}]},
+                { sem:4, year:'II',  courses:[{code:'CS401',name:'Design & Analysis of Algorithms',cr:4},{code:'CS402',name:'Theory of Computation',cr:3},{code:'CS403',name:'Web Technologies',cr:3},{code:'CS404',name:'Microprocessors',cr:3},{code:'CS405',name:'Computer Graphics',cr:3},{code:'CS406',name:'Professional Ethics',cr:2}]},
+                { sem:5, year:'III', courses:[{code:'CS501',name:'Artificial Intelligence',cr:3},{code:'CS502',name:'Cloud Computing',cr:3},{code:'CS503',name:'Machine Learning',cr:4},{code:'CS504',name:'Cybersecurity',cr:3},{code:'CS505',name:'Mobile Application Development',cr:3},{code:'CS506',name:'Elective-I',cr:3}]},
+                { sem:6, year:'III', courses:[{code:'CS601',name:'Big Data Analytics',cr:3},{code:'CS602',name:'Compiler Design',cr:3},{code:'CS603',name:'Internet of Things',cr:3},{code:'CS604',name:'Deep Learning',cr:4},{code:'CS605',name:'Elective-II',cr:3},{code:'CS606',name:'Mini Project',cr:2}]},
+                { sem:7, year:'IV',  courses:[{code:'CS701',name:'Distributed Systems',cr:3},{code:'CS702',name:'Computer Vision',cr:3},{code:'CS703',name:'DevOps & Agile',cr:3},{code:'CS704',name:'Elective-III',cr:3},{code:'CS705',name:'Major Project Phase-I',cr:4}]},
+                { sem:8, year:'IV',  courses:[{code:'CS801',name:'Industry Internship',cr:6},{code:'CS802',name:'Major Project Phase-II',cr:6},{code:'CS803',name:'Elective-IV',cr:3},{code:'CS804',name:'Technical Seminar',cr:2}]}
+            ],
+            ECE: [
+                { sem:1, year:'I',   courses:[{code:'EC101',name:'Engineering Mathematics I',cr:4},{code:'EC102',name:'Engineering Physics',cr:3},{code:'EC103',name:'C Programming',cr:3},{code:'EC104',name:'Basic Electronics',cr:3},{code:'EC105',name:'English Communication',cr:2},{code:'EC106',name:'Engineering Drawing',cr:2}]},
+                { sem:2, year:'I',   courses:[{code:'EC201',name:'Engineering Mathematics II',cr:4},{code:'EC202',name:'Network Analysis',cr:3},{code:'EC203',name:'Digital Electronics',cr:3},{code:'EC204',name:'Electromagnetic Theory',cr:3},{code:'EC205',name:'Engineering Chemistry',cr:3},{code:'EC206',name:'Environmental Science',cr:2}]},
+                { sem:3, year:'II',  courses:[{code:'EC301',name:'Mathematics III',cr:3},{code:'EC302',name:'Signals & Systems',cr:3},{code:'EC303',name:'Analog Communications',cr:3},{code:'EC304',name:'VLSI Design',cr:3},{code:'EC305',name:'Control Systems',cr:3},{code:'EC306',name:'Microprocessors',cr:3}]},
+                { sem:4, year:'II',  courses:[{code:'EC401',name:'Digital Communications',cr:3},{code:'EC402',name:'DSP',cr:3},{code:'EC403',name:'Embedded Systems',cr:3},{code:'EC404',name:'Wireless Communication',cr:3},{code:'EC405',name:'Optical Fiber Comm.',cr:3},{code:'EC406',name:'Professional Ethics',cr:2}]},
+                { sem:5, year:'III', courses:[{code:'EC501',name:'RF & Microwave Engg.',cr:3},{code:'EC502',name:'Antenna & Wave Propagation',cr:3},{code:'EC503',name:'MEMS',cr:3},{code:'EC504',name:'Advanced VLSI',cr:3},{code:'EC505',name:'IoT',cr:3},{code:'EC506',name:'Elective-I',cr:3}]},
+                { sem:6, year:'III', courses:[{code:'EC601',name:'Satellite Communication',cr:3},{code:'EC602',name:'Radar Systems',cr:3},{code:'EC603',name:'Medical Electronics',cr:3},{code:'EC604',name:'Robotics & Automation',cr:3},{code:'EC605',name:'Elective-II',cr:3},{code:'EC606',name:'Mini Project',cr:2}]},
+                { sem:7, year:'IV',  courses:[{code:'EC701',name:'5G Communications',cr:3},{code:'EC702',name:'Autonomous Systems',cr:3},{code:'EC703',name:'Elective-III',cr:3},{code:'EC704',name:'Major Project Phase-I',cr:4}]},
+                { sem:8, year:'IV',  courses:[{code:'EC801',name:'Industry Internship',cr:6},{code:'EC802',name:'Major Project Phase-II',cr:6},{code:'EC803',name:'Elective-IV',cr:3},{code:'EC804',name:'Technical Seminar',cr:2}]}
+            ],
+            MECH: [
+                { sem:1, year:'I',   courses:[{code:'ME101',name:'Engineering Mathematics I',cr:4},{code:'ME102',name:'Engineering Physics',cr:3},{code:'ME103',name:'Engineering Drawing',cr:3},{code:'ME104',name:'Basic Mechanical Engg.',cr:3},{code:'ME105',name:'English Communication',cr:2},{code:'ME106',name:'Environmental Science',cr:2}]},
+                { sem:2, year:'I',   courses:[{code:'ME201',name:'Engineering Mathematics II',cr:4},{code:'ME202',name:'Thermodynamics',cr:3},{code:'ME203',name:'Fluid Mechanics',cr:3},{code:'ME204',name:'Mfg. Processes',cr:3},{code:'ME205',name:'Engineering Chemistry',cr:3},{code:'ME206',name:'Strength of Materials I',cr:3}]},
+                { sem:3, year:'II',  courses:[{code:'ME301',name:'Mathematics III',cr:3},{code:'ME302',name:'Strength of Materials II',cr:3},{code:'ME303',name:'Kinematics of Machinery',cr:3},{code:'ME304',name:'Heat Transfer',cr:3},{code:'ME305',name:'Machine Design',cr:3},{code:'ME306',name:'Industrial Engineering',cr:3}]},
+                { sem:4, year:'II',  courses:[{code:'ME401',name:'Metrology & Quality',cr:3},{code:'ME402',name:'CAD/CAM',cr:3},{code:'ME403',name:'Finite Element Analysis',cr:3},{code:'ME404',name:'Refrigeration & AC',cr:3},{code:'ME405',name:'Power Plant Engg.',cr:3},{code:'ME406',name:'Professional Ethics',cr:2}]},
+                { sem:5, year:'III', courses:[{code:'ME501',name:'Robotics',cr:3},{code:'ME502',name:'CNC Technology',cr:3},{code:'ME503',name:'Composite Materials',cr:3},{code:'ME504',name:'Mechatronics',cr:3},{code:'ME505',name:'Operations Research',cr:3},{code:'ME506',name:'Elective-I',cr:3}]},
+                { sem:6, year:'III', courses:[{code:'ME601',name:'Advanced Manufacturing',cr:3},{code:'ME602',name:'Turbomachinery',cr:3},{code:'ME603',name:'Product Design',cr:3},{code:'ME604',name:'Supply Chain Management',cr:3},{code:'ME605',name:'Elective-II',cr:3},{code:'ME606',name:'Mini Project',cr:2}]},
+                { sem:7, year:'IV',  courses:[{code:'ME701',name:'Smart Manufacturing',cr:3},{code:'ME702',name:'Additive Manufacturing',cr:3},{code:'ME703',name:'Elective-III',cr:3},{code:'ME704',name:'Major Project Phase-I',cr:4}]},
+                { sem:8, year:'IV',  courses:[{code:'ME801',name:'Industry Internship',cr:6},{code:'ME802',name:'Major Project Phase-II',cr:6},{code:'ME803',name:'Elective-IV',cr:3},{code:'ME804',name:'Technical Seminar',cr:2}]}
+            ],
+            CIVIL: [
+                { sem:1, year:'I',   courses:[{code:'CE101',name:'Engineering Mathematics I',cr:4},{code:'CE102',name:'Engineering Physics',cr:3},{code:'CE103',name:'Engineering Drawing',cr:3},{code:'CE104',name:'Basic Civil Engg.',cr:3},{code:'CE105',name:'English Communication',cr:2},{code:'CE106',name:'Environmental Science',cr:2}]},
+                { sem:2, year:'I',   courses:[{code:'CE201',name:'Engineering Mathematics II',cr:4},{code:'CE202',name:'Surveying',cr:3},{code:'CE203',name:'Engineering Geology',cr:3},{code:'CE204',name:'Building Materials',cr:3},{code:'CE205',name:'Engineering Chemistry',cr:3},{code:'CE206',name:'Strength of Materials I',cr:3}]},
+                { sem:3, year:'II',  courses:[{code:'CE301',name:'Mathematics III',cr:3},{code:'CE302',name:'Structural Analysis',cr:3},{code:'CE303',name:'Fluid Mechanics',cr:3},{code:'CE304',name:'Transportation Engg.',cr:3},{code:'CE305',name:'Geotechnical Engg.',cr:3},{code:'CE306',name:'Concrete Technology',cr:3}]},
+                { sem:4, year:'II',  courses:[{code:'CE401',name:'Environmental Engg.',cr:3},{code:'CE402',name:'Design of RCC Structures',cr:3},{code:'CE403',name:'Irrigation & Water Supply',cr:3},{code:'CE404',name:'Foundation Engg.',cr:3},{code:'CE405',name:'Project Management',cr:3},{code:'CE406',name:'Professional Ethics',cr:2}]},
+                { sem:5, year:'III', courses:[{code:'CE501',name:'Earthquake Engineering',cr:3},{code:'CE502',name:'Advanced Structural Analysis',cr:3},{code:'CE503',name:'Remote Sensing & GIS',cr:3},{code:'CE504',name:'Advanced Surveying',cr:3},{code:'CE505',name:'Elective-I',cr:3},{code:'CE506',name:'Estimation & Costing',cr:3}]},
+                { sem:6, year:'III', courses:[{code:'CE601',name:'Prestressed Concrete',cr:3},{code:'CE602',name:'Highways Engineering',cr:3},{code:'CE603',name:'Hydrology',cr:3},{code:'CE604',name:'Waste Water Treatment',cr:3},{code:'CE605',name:'Elective-II',cr:3},{code:'CE606',name:'Mini Project',cr:2}]},
+                { sem:7, year:'IV',  courses:[{code:'CE701',name:'Smart Infrastructure',cr:3},{code:'CE702',name:'Construction Management',cr:3},{code:'CE703',name:'Elective-III',cr:3},{code:'CE704',name:'Major Project Phase-I',cr:4}]},
+                { sem:8, year:'IV',  courses:[{code:'CE801',name:'Industry Internship',cr:6},{code:'CE802',name:'Major Project Phase-II',cr:6},{code:'CE803',name:'Elective-IV',cr:3},{code:'CE804',name:'Technical Seminar',cr:2}]}
+            ],
+            MBA: [
+                { sem:1, year:'I',   courses:[{code:'MB101',name:'Principles of Management',cr:4},{code:'MB102',name:'Business Economics',cr:3},{code:'MB103',name:'Business Statistics',cr:3},{code:'MB104',name:'Financial Accounting',cr:3},{code:'MB105',name:'Marketing Management',cr:3},{code:'MB106',name:'IT for Business',cr:2}]},
+                { sem:2, year:'I',   courses:[{code:'MB201',name:'HR Management',cr:3},{code:'MB202',name:'Financial Management',cr:3},{code:'MB203',name:'Operations Management',cr:3},{code:'MB204',name:'Business Research Methods',cr:3},{code:'MB205',name:'Strategic Management',cr:3},{code:'MB206',name:'Business Communication',cr:2}]},
+                { sem:3, year:'II',  courses:[{code:'MB301',name:'Entrepreneurship',cr:3},{code:'MB302',name:'Supply Chain Management',cr:3},{code:'MB303',name:'International Business',cr:3},{code:'MB304',name:'Marketing Strategy',cr:3},{code:'MB305',name:'Business Analytics',cr:3},{code:'MB306',name:'Corporate Law',cr:3}]},
+                { sem:4, year:'II',  courses:[{code:'MB401',name:'Project Management',cr:3},{code:'MB402',name:'Corporate Governance',cr:3},{code:'MB403',name:'Digital Marketing',cr:3},{code:'MB404',name:'Org. Behavior',cr:3},{code:'MB405',name:'Total Quality Management',cr:3},{code:'MB406',name:'Industry Elective',cr:3}]}
+            ]
+        };
+
+        // ── MARKS LOGIC ──────────────────────────────────────────────────
+        async function loadAndRenderMarks(dept, yearNum, studentName) {
+            const tabsEl    = document.getElementById('semesterTabs');
+            const contentEl = document.getElementById('semesterTabContent');
+            const hdrEl     = document.getElementById('marksHeaderLabel');
+            const user      = Auth.getUser();
+
+            if (hdrEl) {
+                hdrEl.textContent = (dept || '') + (studentName ? ' | ' + studentName : '') + (user?.rollNumber ? ' | Roll: ' + user.rollNumber : '');
+            }
+
+            const curriculum    = DEPT_CURRICULUM[dept] || DEPT_CURRICULUM['CSE'];
+            const yr            = yearNum || 1;
+            const completedSems = (yr - 1) * 2;   // Yr1→0, Yr2→2, Yr3→4, Yr4→6
+
+            // ── Grade helper ─────────────────────────────────────────────
+            function gradeFromScore(score) {
+                if (score === null || score === undefined) return { grade:'—', gp:null, desc:'—', pass:null };
+                const m = Number(score);
+                if (isNaN(m)) return { grade:'—', gp:null, desc:'—', pass:null };
+                if (m >= 90) return { grade:'O',  gp:10, desc:'Outstanding',   pass:true  };
+                if (m >= 80) return { grade:'A+', gp: 9, desc:'Excellent',     pass:true  };
+                if (m >= 70) return { grade:'A',  gp: 8, desc:'Very Good',     pass:true  };
+                if (m >= 60) return { grade:'B+', gp: 7, desc:'Good',          pass:true  };
+                if (m >= 50) return { grade:'B',  gp: 6, desc:'Above Average', pass:true  };
+                if (m >= 40) return { grade:'C',  gp: 5, desc:'Average',       pass:true  };
+                return { grade:'F', gp:0, desc:'Fail', pass:false };
+            }
+
+            // ── Deterministic default mark per course code (same for all students) ──
+            function defaultMarkForCode(code) {
+                let h = 0;
+                for (let i = 0; i < code.length; i++) h = (h * 31 + code.charCodeAt(i)) & 0xffff;
+                return 55 + (h % 36);   // 55–90 → always passing
+            }
+
+            // Show loading spinner
+            tabsEl.innerHTML    = '<li class="nav-item"><span class="nav-link text-muted fst-italic small"><span class="spinner-border spinner-border-sm me-1"></span>Loading…</span></li>';
+            contentEl.innerHTML = '';
+            const internalTabs    = document.getElementById('internalMarksTabs');
+            const internalContent = document.getElementById('internalMarksContent');
+            internalTabs.innerHTML    = '';
+            internalContent.innerHTML = '';
+
+            // Fetch DB marks; curriculum can prefer DB over default
+            let records = [];
+            try { records = await ApiMarks.list(); } catch (e) { records = []; }
+
+            // Best-effort match: find a DB record whose sub_type partially overlaps with course name
+            function findMarkForCourse(courseName) {
+                const words = courseName.toLowerCase().split(/\W+/).filter(w => w.length >= 4);
+                for (const r of records) {
+                    const sn = (r.sub_type || '').toLowerCase();
+                    if (words.some(w => sn.includes(w))) return r;
+                }
+                return null;
+            }
+
+            // Default-open on last completed semester (or Sem 1 if none)
+            const defaultActiveIdx = completedSems > 0 ? completedSems - 1 : 0;
+
+            // ── Part 1: Semester-wise Results (grade table format) ────────
+            tabsEl.innerHTML    = '';
+            contentEl.innerHTML = '';
+            curriculum.forEach((semObj, idx) => {
+                const isCompleted = semObj.sem <= completedSems;
+                const active = idx === defaultActiveIdx ? 'active' : '';
+                const show   = idx === defaultActiveIdx ? 'show active' : '';
+                const paneId = 'sem-pane-' + semObj.sem;
+                const li = document.createElement('li');
+                li.className = 'nav-item';
+                const checkMark = isCompleted ? ' <i class="bi bi-patch-check-fill text-success" title="Completed"></i>' : '';
+                li.innerHTML = '<button class="nav-link ' + active + '" data-bs-toggle="tab" data-bs-target="#' + paneId + '" type="button">Sem ' + semObj.sem + checkMark + ' <small class="text-muted">(' + semObj.year + ' Yr)</small></button>';
+                tabsEl.appendChild(li);
+
+                let totalCr = 0, earnedGP = 0, gradedCr = 0, passed = 0, failed = 0;
+                let rows = semObj.courses.map((c, i) => {
+                    totalCr += c.cr;
+                    const rec      = findMarkForCourse(c.name);
+                    // Use DB record if available; else use deterministic default for completed semesters
+                    const score    = rec ? rec.marks_scored : (isCompleted ? defaultMarkForCode(c.code) : null);
+                    const { grade, gp, desc, pass } = gradeFromScore(score);
+                    if (gp !== null) { earnedGP += gp * c.cr; gradedCr += c.cr; if (pass) passed++; else failed++; }
+                    const scoreCell   = score !== null ? '<strong>' + score + '</strong>' : '<span class="text-muted">—</span>';
+                    const gradeBadge  = grade !== '—'
+                        ? '<span class="badge fs-6 fw-semibold ' + (pass ? 'bg-success' : 'bg-danger') + '">' + grade + '</span>'
+                        : '<span class="text-muted">—</span>';
+                    const resultBadge = pass === null
+                        ? '<span class="badge bg-warning text-dark">Pending</span>'
+                        : pass ? '<span class="badge bg-success">Pass</span>' : '<span class="badge bg-danger">Fail</span>';
+                    return '<tr>' +
+                        '<td class="text-center">' + (i + 1) + '</td>' +
+                        '<td><span class="badge bg-secondary fw-normal">' + c.code + '</span></td>' +
+                        '<td class="fw-semibold">' + c.name + '</td>' +
+                        '<td class="text-center text-muted small">' + semObj.year + ' Yr</td>' +
+                        '<td class="text-center">' + scoreCell + '</td>' +
+                        '<td class="text-center">' + gradeBadge + '</td>' +
+                        '<td class="text-center small">' + desc + '</td>' +
+                        '<td class="text-center">' + c.cr + '</td>' +
+                        '<td class="text-center">' + resultBadge + '</td>' +
+                        '</tr>';
+                }).join('');
+
+                const sgpa = gradedCr > 0 ? (earnedGP / gradedCr).toFixed(2) : '—';
+                const pct  = gradedCr > 0 ? ((earnedGP / gradedCr - 0.5) * 10).toFixed(1) + '%' : '—';
+                const ovrResult  = gradedCr === 0 ? 'Pending' : failed > 0 ? 'Fail' : 'Pass';
+                const ovrBadgeCls = gradedCr === 0 ? 'warning text-dark' : failed > 0 ? 'danger' : 'success';
+
+                const pane = document.createElement('div');
+                pane.className = 'tab-pane fade ' + show;
+                pane.id = paneId;
+                pane.innerHTML =
+                    '<div class="table-responsive">' +
+                    '<table class="table table-bordered table-hover align-middle mb-0 small">' +
+                    '<thead class="table-dark"><tr>' +
+                    '<th class="text-center" style="width:50px;">S.No</th>' +
+                    '<th style="width:110px;">Course Code</th>' +
+                    '<th>Course Name</th>' +
+                    '<th class="text-center" style="width:80px;">Year</th>' +
+                    '<th class="text-center" style="width:75px;">Marks</th>' +
+                    '<th class="text-center" style="width:70px;">Grade</th>' +
+                    '<th class="text-center" style="width:130px;">Grade Description</th>' +
+                    '<th class="text-center" style="width:70px;">Credits</th>' +
+                    '<th class="text-center" style="width:85px;">Result</th>' +
+                    '</tr></thead>' +
+                    '<tbody>' + rows + '</tbody>' +
+                    '<tfoot>' +
+                    '<tr class="table-secondary fw-semibold">' +
+                    '<td colspan="7" class="text-end pe-3">Total Credits</td>' +
+                    '<td class="text-center">' + totalCr + '</td>' +
+                    '<td></td>' +
+                    '</tr>' +
+                    '<tr class="table-warning fw-bold">' +
+                    '<td colspan="2" class="text-center">Overall Result</td>' +
+                    '<td class="text-center"><span class="badge bg-' + ovrBadgeCls + '">' + ovrResult + '</span></td>' +
+                    '<td class="text-center">Failed: ' + failed + '</td>' +
+                    '<td colspan="2" class="text-center">Again Result (Backlogs): ' + failed + '</td>' +
+                    '<td class="text-center">SGPA: ' + sgpa + '</td>' +
+                    '<td colspan="2" class="text-center">Percentage: ' + pct + '</td>' +
+                    '</tr>' +
+                    '</tfoot>' +
+                    '</table></div>';
+                contentEl.appendChild(pane);
+            });
+
+            // ── Part 2: Internal marks from DB (grade table format) ───────
+            if (!records.length) {
+                internalContent.innerHTML = '<div class="alert alert-info mt-2"><i class="bi bi-info-circle me-2"></i>No internal marks uploaded yet by faculty.</div>';
+                return;
+            }
+
+            // Group by exam_type
+            const examMap = {};
+            records.forEach(r => {
+                const et = r.exam_type || 'General';
+                if (!examMap[et]) examMap[et] = [];
+                examMap[et].push(r);
+            });
+
+            Object.keys(examMap).forEach((exam, idx) => {
+                const active = idx === 0 ? 'active' : '';
+                const show   = idx === 0 ? 'show active' : '';
+                const paneId = 'int-pane-' + idx;
+                const li = document.createElement('li');
+                li.className = 'nav-item';
+                li.innerHTML = '<button class="nav-link ' + active + '" data-bs-toggle="tab" data-bs-target="#' + paneId + '" type="button">' + exam + '</button>';
+                internalTabs.appendChild(li);
+
+                let trows = '', earnedGP = 0, gradedCount = 0, passed = 0, failed = 0;
+                examMap[exam].forEach((r, i) => {
+                    const score = (r.marks_scored !== null && r.marks_scored !== undefined) ? r.marks_scored : null;
+                    const { grade, gp, desc, pass } = gradeFromScore(score);
+                    const dateStr = r.created_at ? new Date(r.created_at).toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'}) : '—';
+                    if (gp !== null) { earnedGP += gp; gradedCount++; if (pass) passed++; else failed++; }
+                    const scoreCell   = score !== null ? '<strong>' + score + '</strong>' : '<span class="text-muted">—</span>';
+                    const gradeBadge  = grade !== '—'
+                        ? '<span class="badge fs-6 fw-semibold ' + (pass ? 'bg-success' : 'bg-danger') + '">' + grade + '</span>'
+                        : '<span class="text-muted">—</span>';
+                    const resultBadge = pass === null
+                        ? '<span class="badge bg-warning text-dark">Pending</span>'
+                        : pass ? '<span class="badge bg-success">Pass</span>' : '<span class="badge bg-danger">Fail</span>';
+                    trows += '<tr>' +
+                        '<td class="text-center">' + (i + 1) + '</td>' +
+                        '<td class="fw-semibold">' + (r.sub_type || '—') + '</td>' +
+                        '<td class="text-center">' + scoreCell + '</td>' +
+                        '<td class="text-center">' + gradeBadge + '</td>' +
+                        '<td class="text-center small">' + desc + '</td>' +
+                        '<td class="text-center">' + resultBadge + '</td>' +
+                        '<td class="text-muted small text-center">' + dateStr + '</td>' +
+                        '</tr>';
+                });
+
+                const sgpa = gradedCount > 0 ? (earnedGP / gradedCount).toFixed(2) : '—';
+                const pct  = gradedCount > 0 ? ((earnedGP / gradedCount - 0.5) * 10).toFixed(1) + '%' : '—';
+                const ovrResult  = gradedCount === 0 ? 'Pending' : failed > 0 ? 'Fail' : 'Pass';
+                const ovrBadgeCls = gradedCount === 0 ? 'warning text-dark' : failed > 0 ? 'danger' : 'success';
+
+                const pane = document.createElement('div');
+                pane.className = 'tab-pane fade ' + show;
+                pane.id = paneId;
+                pane.innerHTML =
+                    '<div class="table-responsive">' +
+                    '<table class="table table-bordered table-hover align-middle mb-0 small">' +
+                    '<thead class="table-dark"><tr>' +
+                    '<th class="text-center" style="width:60px;">S.No</th>' +
+                    '<th>Subject / Sub Type</th>' +
+                    '<th class="text-center" style="width:85px;">Marks</th>' +
+                    '<th class="text-center" style="width:75px;">Grade</th>' +
+                    '<th class="text-center" style="width:140px;">Grade Description</th>' +
+                    '<th class="text-center" style="width:90px;">Result</th>' +
+                    '<th class="text-center" style="width:120px;">Date</th>' +
+                    '</tr></thead>' +
+                    '<tbody>' + trows + '</tbody>' +
+                    '<tfoot>' +
+                    '<tr class="table-warning fw-bold">' +
+                    '<td colspan="2" class="text-center">Overall Result</td>' +
+                    '<td class="text-center"><span class="badge bg-' + ovrBadgeCls + '">' + ovrResult + '</span></td>' +
+                    '<td class="text-center">SGPA: ' + sgpa + '</td>' +
+                    '<td class="text-center">Failed: ' + failed + '</td>' +
+                    '<td class="text-center">Passed: ' + passed + '</td>' +
+                    '<td class="text-center">%: ' + pct + '</td>' +
+                    '</tr>' +
+                    '</tfoot>' +
+                    '</table></div>';
+                internalContent.appendChild(pane);
+            });
+        }
+
+        // ── ATTENDANCE LOGIC (API-driven) ────────────────────────────────
+        async function loadAndRenderAttendance() {
+            const attTableBody    = document.getElementById('attTableBody');
+            const attTableFoot    = document.getElementById('attTableFoot');
+            const attDateLabel    = document.getElementById('attDateLabel');
+            const attOverallBadge = document.getElementById('attOverallBadge');
+            attDateLabel.textContent = 'As on: ' + new Date().toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'});
+            attTableBody.innerHTML = '<tr><td colspan="5" class="text-center text-muted py-3"><span class="spinner-border spinner-border-sm me-2"></span>Loading…</td></tr>';
+            let records = [];
+            try {
+                records = await ApiAttendance.list();
+            } catch (e) {
+                attTableBody.innerHTML = '<tr><td colspan="5" class="text-danger text-center">Failed to load: ' + e.message + '</td></tr>';
+                attOverallBadge.textContent = '—';
+                attOverallBadge.className = 'badge fs-6 px-3 py-2 bg-secondary';
+                return;
+            }
+            if (!records.length) {
+                attTableBody.innerHTML = '<tr><td colspan="5" class="text-center text-muted py-3">No attendance records found.</td></tr>';
+                attOverallBadge.textContent = '—';
+                attOverallBadge.className = 'badge fs-6 px-3 py-2 bg-secondary';
+                return;
+            }
+            const totalHeld    = records.length;
+            const totalPresent = records.filter(r => r.is_present).length;
+            const overallPct   = ((totalPresent / totalHeld) * 100).toFixed(1);
+            attTableBody.innerHTML = '';
+            records.slice(0, 30).forEach((r, i) => {
+                const dateStr = r.attendance_date
+                    ? new Date(r.attendance_date + 'T00:00:00').toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'})
+                    : '—';
+                const present = r.is_present;
+                const tr = document.createElement('tr');
+                if (!present) tr.classList.add('table-danger');
+                tr.innerHTML =
+                    '<td class="text-center">' + (i + 1) + '</td>' +
+                    '<td>' + dateStr + '</td>' +
+                    '<td class="text-center">' + (r.section || '—') + '</td>' +
+                    '<td class="text-center">' + totalHeld + '</td>' +
+                    '<td class="text-center fw-semibold ' + (present ? 'text-success' : 'text-danger') + '">' +
+                    (present ? '<i class="bi bi-check-circle-fill me-1"></i>Present' : '<i class="bi bi-x-circle-fill me-1"></i>Absent') +
+                    '</td>';
+                attTableBody.appendChild(tr);
+            });
+            const tfr = document.createElement('tr');
+            tfr.className = 'table-warning fw-bold';
+            tfr.innerHTML =
+                '<td class="text-center" colspan="3">Overall (' + totalPresent + '/' + totalHeld + ')</td>' +
+                '<td class="text-center">' + totalHeld + '</td>' +
+                '<td class="text-center">' + overallPct + '%</td>';
+            attTableFoot.innerHTML = '';
+            attTableFoot.appendChild(tfr);
+            attOverallBadge.textContent = overallPct + '%';
+            attOverallBadge.className = 'badge fs-6 px-3 py-2 ' + (parseFloat(overallPct) >= 75 ? 'bg-success' : 'bg-danger');
+        }
+
+
+        // ── PROFILE: Add/Edit Details toggle ──────────────────────────────────────────
+        const addDetailsBtn    = document.getElementById('addDetailsBtn');
+        const cancelDetailsBtn = document.getElementById('cancelDetailsBtn');
+        const detailsCard      = document.getElementById('detailsCard');
+        let currentProfileData = { personal: {}, qualifications: [] };
+
+        function populateStudentForm(data) {
+            const p = data.personal || {};
+            const setVal = (id, val) => { const el = document.getElementById(id); if (el) el.value = (val && val !== '-') ? val : ''; };
+            setVal('personFName',  p.fname);
+            setVal('personLName',  p.lname);
+            setVal('dob',          p.dob);
+            setVal('facultyId',    p.facultyId);  // roll number
+            setVal('branch',       p.branch);
+            setVal('role',         p.role);        // current year
+            setVal('gender',       p.gender);
+            setVal('nationality',  p.nationality);
+            setVal('religion',     p.religion);
+            setVal('mobile',       p.mobile);
+            setVal('email',        p.email);
+            setVal('aadhar',       p.aadhar);
+            setVal('city',         p.city);
+        }
+
+        addDetailsBtn.addEventListener('click', function () {
+            populateStudentForm(currentProfileData);
+            detailsCard.style.display = 'block';
+            detailsCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+
+        cancelDetailsBtn?.addEventListener('click', function () {
+            detailsCard.style.display = 'none';
+        });
+
+        // ── PROFILE: Load & render ───────────────────────────────────────────────
+        const emptyProfile = { personal: {}, qualifications: [] };
+
+        async function loadProfile() {
+            const user = Auth.getUser();
+            if (!user || !user.rollNumber) return emptyProfile;
+            try {
+                const d = await ApiStudents.get(user.rollNumber);
+                return {
+                    personal: {
+                        fname:       d.first_name      || '-',
+                        lname:       d.last_name        || '-',
+                        dob:         d.date_of_birth    || '-',
+                        facultyId:   d.roll_number      || '-',
+                        branch:      d.department       || '-',
+                        role:        d.current_year     || '-',
+                        gender:      d.gender           || '-',
+                        nationality: d.nationality      || '-',
+                        religion:    d.religion         || '-',
+                        mobile:      d.mobile           || '-',
+                        email:       d.email            || '-',
+                        aadhar:      d.aadhar_number    || '-',
+                        city:        d.city             || '-',
+                    },
+                    qualifications: (d.qualifications || []).map(q => ({
+                        qualification: q.qualification,
+                        fromYear:      q.from_year,
+                        toYear:        q.to_year,
+                        certType:      q.certificate_type,
+                        fileName:      q.certificate_filename || '-'
+                    }))
+                };
+            } catch (e) {
+                console.warn('loadProfile:', e.message);
+                return emptyProfile;
+            }
+        }
+
+        async function saveProfileToApi(profileData) {
+            const user = Auth.getUser();
+            if (!user || !user.rollNumber) return;
+            const p = profileData.personal || {};
+            const qualifications = (profileData.qualifications || []).map(q => ({
+                qualification: q.qualification,
+                from_year:     q.fromYear,
+                to_year:       q.toYear,
+                cert_type:     q.certType,
+                cert_filename: q.fileName
+            }));
+            try {
+                await ApiStudents.updateProfile(user.rollNumber, {
+                    first_name:    p.fname,
+                    last_name:     p.lname,
+                    date_of_birth: p.dob,
+                    gender:        p.gender,
+                    mobile:        p.mobile,
+                    email:         p.email,
+                    nationality:   p.nationality,
+                    religion:      p.religion,
+                    aadhar_number: p.aadhar,
+                    city:          p.city,
+                    qualifications
+                });
+            } catch (e) {
+                console.warn('saveProfile:', e.message);
+            }
+        }
+
+        function renderProfile(data) {
+            const p = data.personal || {};
+            document.getElementById('profileFName').textContent       = p.fname       || '-';
+            document.getElementById('profileLName').textContent       = p.lname       || '-';
+            document.getElementById('profileDOB').textContent         = p.dob         || '-';
+            document.getElementById('profileFacultyId').textContent   = p.facultyId   || '-';
+            document.getElementById('profileBranch').textContent      = p.branch      || '-';
+            document.getElementById('profileRole').textContent        = p.role        || '-';
+            document.getElementById('profileGender').textContent      = p.gender      || '-';
+            document.getElementById('profileNationality').textContent = p.nationality || '-';
+            document.getElementById('profileReligion').textContent    = p.religion    || '-';
+            document.getElementById('profileMobile').textContent      = p.mobile      || '-';
+            document.getElementById('profileEmail').textContent       = p.email       || '-';
+            document.getElementById('profileAadhar').textContent      = p.aadhar      || '-';
+            document.getElementById('profileCity').textContent        = p.city        || '-';
+
+            const qBody = document.querySelector('#qualificationsTable tbody');
+            qBody.innerHTML = '';
+            (data.qualifications || []).forEach(item => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `<td>${item.qualification||'-'}</td><td>${item.fromYear||'-'}</td><td>${item.toYear||'-'}</td><td>${item.certType||'-'}</td><td>${item.fileName||'-'}</td>`;
+                qBody.appendChild(tr);
+            });
+            if (!qBody.children.length) qBody.innerHTML = '<tr><td colspan="5">No qualifications added</td></tr>';
+        }
+
+        loadProfile().then(data => {
+            currentProfileData = data;
+            renderProfile(data);
+            const p = data.personal || {};
+
+            // ── Populate dynamic sections based on branch + year ──────────
+            const dept    = p.branch || 'CSE';
+            const yearNum = parseInt(p.role) || 1;       // role field stores current_year
+            renderTimetable(dept, yearNum);
+            loadAndRenderMarks(dept, yearNum, (p.fname && p.lname && p.fname !== '-') ? p.fname + ' ' + p.lname : '');
+            loadAndRenderAttendance();
+
+            const hasData = p.fname && p.fname !== '-';
+            if (hasData) {
+                addDetailsBtn.innerHTML = '<i class="bi bi-pencil-fill me-1"></i> Edit Profile';
+                addDetailsBtn.classList.replace('btn-primary', 'btn-warning');
+                document.querySelector('#detailsCard .card-header').innerHTML = '<i class="bi bi-person-fill me-2"></i>Edit Student Profile';
+            }
+        });
+
+        // ── PROFILE: Form submit ─────────────────────────────────────────────────
+        function fileToBase64(file) {
+            return new Promise((res, rej) => {
+                const r = new FileReader();
+                r.onload = () => res(r.result);
+                r.onerror = rej;
+                r.readAsDataURL(file);
+            });
+        }
+
+        async function collectQualifications() {
+            const rows = [];
+            for (const entry of document.querySelectorAll('.qualification-entry')) {
+                const qual = entry.querySelector('.qualification-select')?.value;
+                if (!qual) continue;
+                const fi = entry.querySelector('.qualification-file');
+                let fileName = '-', fileData = null;
+                if (fi?.files?.[0]) { fileName = fi.files[0].name; fileData = await fileToBase64(fi.files[0]); }
+                rows.push({
+                    qualification: entry.querySelector('.qualification-select').options[entry.querySelector('.qualification-select').selectedIndex].text,
+                    fromYear: entry.querySelector('.qual-from-date')?.value || '-',
+                    toYear:   entry.querySelector('.qual-to-date')?.value   || '-',
+                    certType: entry.querySelector('.cert-type-select')?.value || '-',
+                    fileName, fileData
+                });
+            }
+            return rows;
+        }
+
+        document.getElementById('facultyDetailsForm')?.addEventListener('submit', async function (e) {
+            e.preventDefault();
+            const personal = {
+                fname:       document.getElementById('personFName')?.value  || '-',
+                lname:       document.getElementById('personLName')?.value  || '-',
+                dob:         document.getElementById('dob')?.value          || '-',
+                facultyId:   document.getElementById('facultyId')?.value    || '-',
+                branch:      document.getElementById('branch')?.value       || '-',
+                role:        document.getElementById('role')?.value         || '-',
+                gender:      document.getElementById('gender')?.value       || '-',
+                nationality: document.getElementById('nationality')?.value  || '-',
+                religion:    document.getElementById('religion')?.value     || '-',
+                mobile:      document.getElementById('mobile')?.value       || '-',
+                email:       document.getElementById('email')?.value        || '-',
+                aadhar:      document.getElementById('aadhar')?.value       || '-',
+                city:        document.getElementById('city')?.value         || '-',
+            };
+            const qualifications = await collectQualifications();
+            const profileData    = { personal, qualifications };
+            await saveProfileToApi(profileData);
+            currentProfileData = profileData;
+            renderProfile(profileData);
+            addDetailsBtn.innerHTML = '<i class="bi bi-pencil-fill me-1"></i> Edit Profile';
+            addDetailsBtn.classList.replace('btn-primary', 'btn-warning');
+            document.querySelector('#detailsCard .card-header').innerHTML = '<i class="bi bi-person-fill me-2"></i>Edit Student Profile';
+            this.reset();
+            detailsCard.style.display = 'none';
+            alert('Details saved successfully!');
+        });
+
+        // ── QUALIFICATIONS: dynamic entries ─────────────────────────────────────
+        let entryCount = 0;
+
+        function getSelectedQualifications() {
+            return [...document.querySelectorAll('.qualification-select')].map(s => s.value).filter(Boolean);
+        }
+        function updateQualificationOptions() {
+            const selected = getSelectedQualifications();
+            document.querySelectorAll('.qualification-select').forEach(sel => {
+                const cur = sel.value;
+                sel.querySelectorAll('option').forEach(opt => {
+                    if (opt.value && opt.value !== cur) opt.disabled = selected.includes(opt.value);
+                });
+            });
+        }
+        function attachQualificationListeners(entry) {
+            const sel     = entry.querySelector('.qualification-select');
+            const upSec   = entry.querySelector('.upload-section');
+            const headSec = entry.querySelector('.qualification-heading');
+            const detSec  = entry.querySelector('.qual-details-section');
+            const headTxt = headSec.querySelector('h5');
+            const fi      = entry.querySelector('.qualification-file');
+
+            sel.addEventListener('change', function () {
+                if (this.value) {
+                    headSec.style.display = 'block';
+                    detSec.style.display  = 'block';
+                    upSec.style.display   = 'block';
+                    headTxt.textContent   = this.options[this.selectedIndex].text;
+                } else {
+                    headSec.style.display = detSec.style.display = upSec.style.display = 'none';
+                    headTxt.textContent   = '';
+                }
+                updateQualificationOptions();
+            });
+            fi.addEventListener('change', function () {
+                if (this.files.length > 0) addNewQualificationEntry();
+            });
+        }
+        function addNewQualificationEntry() {
+            entryCount++;
+            const e = document.createElement('div');
+            e.className = 'qualification-entry';
+            e.setAttribute('data-entry', entryCount);
+            e.innerHTML = `
+                <div class="col-12 mt-2">
+                    <label class="form-label">Select Qualification</label>
+                    <select class="form-select qualification-select" id="qualification-${entryCount}">
+                        <option value="">Choose...</option>
+                        <option value="ssc">SSC</option><option value="plus2">+2</option>
+                        <option value="ug">UG</option><option value="pg">PG</option><option value="phd">PhD</option>
+                    </select>
+                </div>
+                <div class="col-12 qualification-heading" style="display:none;"><h5 class="mt-3 mb-2" style="color:#667eea;font-weight:600;"></h5></div>
+                <div class="qual-details-section" style="display:none;">
+                    <div class="col-12"><label class="form-label">From Year</label><input type="number" class="form-control qual-from-date" id="qualFrom-${entryCount}" min="1950" max="2100" placeholder="e.g., 2020"></div>
+                    <div class="col-12"><label class="form-label">To Year</label><input type="number" class="form-control qual-to-date" id="qualTo-${entryCount}" min="1950" max="2100" placeholder="e.g., 2024"></div>
+                    <div class="col-12"><label class="form-label">Certificate Type</label>
+                        <select class="form-select cert-type-select" id="certType-${entryCount}">
+                            <option value="">Choose...</option><option value="memo">Memo</option><option value="certificate">Certificate</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-12 upload-section" style="display:none;">
+                    <label class="form-label">Upload Certificate</label>
+                    <input type="file" class="form-control qualification-file" id="qualificationFile-${entryCount}" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx">
+                </div>`;
+            document.getElementById('qualificationsContainer').appendChild(e);
+            attachQualificationListeners(e);
+            updateQualificationOptions();
+        }
+        document.querySelectorAll('.qualification-entry').forEach(e => attachQualificationListeners(e));
+
+        // ── FEE PAYMENT LOGIC ────────────────────────────────────────────
+        document.querySelectorAll('input[name="paymentMethod"]').forEach(radio => {
+            radio.addEventListener('change', function () {
+                document.getElementById('feeReferenceRow').style.display =
+                    this.value === 'Online' ? 'block' : 'none';
+            });
+        });
+
+        document.getElementById('feePayBtn')?.addEventListener('click', function () {
+            const studentId   = document.getElementById('feeStudentId').value.trim();
+            const studentName = document.getElementById('feeStudentName').value.trim();
+            const feeType     = document.getElementById('feeType').value;
+            const amount      = document.getElementById('feeAmount').value.trim();
+            const method      = document.querySelector('input[name="paymentMethod"]:checked')?.value;
+            const successMsg  = document.getElementById('feeSuccessMsg');
+
+            if (!studentId)                     { alert('Please enter your Student ID.'); return; }
+            if (!studentName)                   { alert('Please enter your name.'); return; }
+            if (!feeType)                       { alert('Please select a fee type.'); return; }
+            if (!amount || Number(amount) <= 0) { alert('Please enter a valid amount.'); return; }
+            if (!method)                        { alert('Please select a payment method.'); return; }
+
+            successMsg.innerHTML =
+                '<i class="bi bi-check-circle-fill me-2"></i>' +
+                'Payment of <strong>&#8377;' + Number(amount).toLocaleString('en-IN') + '</strong> for ' +
+                '<strong>' + feeType + '</strong> submitted successfully via <strong>' + method + '</strong>!';
+            successMsg.style.display = 'block';
+            successMsg.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+            setTimeout(() => {
+                document.getElementById('feeStudentId').value = '';
+                document.getElementById('feeStudentName').value = '';
+                document.getElementById('feeType').value = '';
+                document.getElementById('feeAmount').value = '';
+                document.querySelectorAll('input[name="paymentMethod"]').forEach(r => r.checked = false);
+                document.getElementById('feeReferenceNo').value = '';
+                document.getElementById('feeReferenceRow').style.display = 'none';
+                document.getElementById('feeReceiptFile').value = '';
+                successMsg.style.display = 'none';
+            }, 3000);
+        });
+
+    });
+    </script>
+
+<!-- ═══════════════════════════════════════════
+     CHANGE PASSWORD MODAL
+══════════════════════════════════════════════ -->
+<div class="modal fade" id="changePwdModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header" style="background:linear-gradient(135deg,#1a3a6b,#2e5fc7);color:#fff;">
+                <h5 class="modal-title"><i class="bi bi-key-fill me-2"></i>Change Password</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div id="changePwdError"   class="alert alert-danger  d-none"></div>
+                <div id="changePwdSuccess" class="alert alert-success d-none"></div>
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">Current Password</label>
+                    <input type="password" class="form-control" id="cpCurrent" placeholder="Your current password (or mobile number)">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">New Password</label>
+                    <input type="password" class="form-control" id="cpNew" placeholder="At least 6 characters">
+                </div>
+                <div class="mb-1">
+                    <label class="form-label fw-semibold">Confirm New Password</label>
+                    <input type="password" class="form-control" id="cpConfirm" placeholder="Repeat new password">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary fw-bold" id="changePwdSaveBtn">
+                    <i class="bi bi-check-circle me-1"></i> Update Password
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// ── Change Password ───────────────────────────────────
+document.getElementById('changePasswordBtn').addEventListener('click', function () {
+    document.getElementById('cpCurrent').value  = '';
+    document.getElementById('cpNew').value      = '';
+    document.getElementById('cpConfirm').value  = '';
+    document.getElementById('changePwdError').classList.add('d-none');
+    document.getElementById('changePwdSuccess').classList.add('d-none');
+    new bootstrap.Modal(document.getElementById('changePwdModal')).show();
+});
+
+document.getElementById('changePwdSaveBtn').addEventListener('click', async function () {
+    const errEl = document.getElementById('changePwdError');
+    const okEl  = document.getElementById('changePwdSuccess');
+    errEl.classList.add('d-none');
+    okEl.classList.add('d-none');
+
+    const cur     = document.getElementById('cpCurrent').value;
+    const nw      = document.getElementById('cpNew').value;
+    const confirm = document.getElementById('cpConfirm').value;
+
+    if (!cur)           { errEl.textContent = 'Please enter your current password.'; errEl.classList.remove('d-none'); return; }
+    if (nw.length < 6)  { errEl.textContent = 'New password must be at least 6 characters.'; errEl.classList.remove('d-none'); return; }
+    if (nw !== confirm) { errEl.textContent = 'New password and confirm password do not match.'; errEl.classList.remove('d-none'); return; }
+
+    this.disabled = true; this.textContent = 'Saving...';
+    try {
+        await ApiAuth.changePassword(cur, nw);
+        okEl.textContent = 'Password changed successfully! Use your new password next time you login.';
+        okEl.classList.remove('d-none');
+        document.getElementById('cpCurrent').value = '';
+        document.getElementById('cpNew').value     = '';
+        document.getElementById('cpConfirm').value = '';
+        setTimeout(() => {
+            bootstrap.Modal.getInstance(document.getElementById('changePwdModal')).hide();
+        }, 2500);
+    } catch (err) {
+        errEl.textContent = err.message || 'Failed to change password.';
+        errEl.classList.remove('d-none');
+    } finally {
+        this.disabled = false; this.textContent = 'Update Password';
+    }
+});
+</script>
+</body>
+</html>
