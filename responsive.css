@@ -1,0 +1,225 @@
+/* ═══════════════════════════════════════════════════════════
+   ECAP — Shared Responsive Styles
+   Applied to: student.html, faculty.html, admin.html
+═══════════════════════════════════════════════════════════ */
+
+/* ── Hamburger Button ─────────────────────────────────── */
+.hamburger-btn {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 6px;
+    color: #1a3a6b;
+    font-size: 22px;
+    line-height: 1;
+    transition: background 0.2s;
+    margin-right: 10px;
+}
+.hamburger-btn:hover { background: rgba(21,101,192,0.12); }
+
+/* ── Sidebar Overlay (mobile) ─────────────────────────── */
+.sidebar-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.45);
+    z-index: 1040;
+}
+.sidebar-overlay.active { display: block; }
+
+/* ── Zoom Floating Controls ───────────────────────────── */
+.zoom-controls {
+    position: fixed;
+    bottom: 22px;
+    right: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    z-index: 2000;
+}
+.zoom-btn {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    font-size: 22px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.32);
+    transition: transform 0.15s, box-shadow 0.15s;
+    color: #fff;
+}
+.zoom-btn:hover  { transform: scale(1.13); box-shadow: 0 5px 18px rgba(0,0,0,0.38); }
+.zoom-btn:active { transform: scale(0.95); }
+/* Zoom In = primary action on mobile — larger, more vibrant */
+.zoom-in-btn  { background: linear-gradient(135deg, #0d47a1, #42a5f5); width: 50px; height: 50px; font-size: 26px; }
+.zoom-out-btn { background: linear-gradient(135deg, #6d28d9, #a78bfa); }
+.zoom-reset-btn {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.28);
+    background: linear-gradient(135deg, #1b5e20, #66bb6a);
+    color: #fff;
+    transition: transform 0.15s;
+}
+.zoom-reset-btn:hover { transform: scale(1.12); }
+
+/* ══════════════════════════════════════════════════════════
+   LAPTOP BREAKPOINT (≤ 1024px)
+══════════════════════════════════════════════════════════ */
+@media (max-width: 1024px) {
+    .college-title  { font-size: 1.8rem; letter-spacing: 1.5px; }
+    .header-section { height: 110px; }
+    .main-panel     { padding: 14px; }
+    .stats-grid     { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+}
+
+/* ══════════════════════════════════════════════════════════
+   TABLET BREAKPOINT (≤ 768px)
+══════════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+    /* Show hamburger */
+    .hamburger-btn { display: inline-flex; align-items: center; }
+
+    /* Sidebar becomes slide-in overlay */
+    .sidebar-menu {
+        position: fixed !important;
+        top: 0;
+        left: -260px;
+        width: 220px !important;
+        min-width: 0 !important;
+        height: 100vh;
+        z-index: 1050;
+        overflow-y: auto;
+        box-shadow: 4px 0 20px rgba(0,0,0,0.25);
+        transition: left 0.28s cubic-bezier(0.4,0,0.2,1);
+        border-right: none !important;
+        border-bottom: none !important;
+    }
+    .sidebar-menu.open { left: 0; }
+
+    /* Content wrapper takes full width */
+    .content-wrapper { flex-direction: row !important; }
+    .main-panel {
+        width: 100% !important;
+        padding: 12px !important;
+        min-width: 0;
+    }
+
+    /* Header */
+    .college-title  { font-size: 1.3rem; letter-spacing: 1px; }
+    .header-section { height: 90px; }
+
+    /* Action bar */
+    .password-action-bar { padding: 10px 14px; }
+    .bar-left  { font-size: 14px; }
+    .bar-right a, .bar-right button { font-size: 13px; }
+
+    /* Principal photo */
+    .principal-photo { width: 70px; height: 80px; top: 8px; right: 10px; }
+
+    /* Stats grid */
+    .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+
+    /* Tables: horizontal scroll */
+    .table-responsive { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .admin-table, .profile-table { font-size: 13px; }
+
+    /* Cards */
+    .glass-card, .card { margin-left: 0 !important; margin-right: 0 !important; }
+    .card-body { padding: 12px !important; }
+
+    /* Filter bar */
+    .filter-bar         { flex-direction: column !important; align-items: stretch !important; gap: 8px !important; }
+    .filter-input,
+    .filter-select      { max-width: 100% !important; width: 100% !important; }
+
+    /* Profile grid */
+    .profile-grid { grid-template-columns: repeat(2, 1fr) !important; }
+    .detail-grid  { grid-template-columns: repeat(2, 1fr) !important; }
+
+    /* Nav tabs: scrollable */
+    .nav-tabs { flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .nav-tabs .nav-link { white-space: nowrap; font-size: 13px; padding: 6px 10px; }
+
+    /* Timetable */
+    #ttTable th, #ttTable td { font-size: 11px; padding: 4px 3px; min-width: 0; }
+
+    /* Marks/attendance tables */
+    .table.small td, .table.small th { font-size: 12px; padding: 5px 6px; }
+
+    /* Modal dialog full-screen on small */
+    .modal-dialog { margin: 8px; max-width: calc(100vw - 16px); }
+    .modal-body   { max-height: 72vh; overflow-y: auto; }
+}
+
+/* ══════════════════════════════════════════════════════════
+   MOBILE BREAKPOINT (≤ 480px)
+══════════════════════════════════════════════════════════ */
+@media (max-width: 480px) {
+    .college-title  { font-size: 1.05rem; letter-spacing: 0.5px; }
+    .header-section { height: 72px; }
+
+    .marquee-section { height: 34px; }
+    .marquee-text    { font-size: 12px; }
+
+    .password-action-bar { padding: 8px 10px; flex-wrap: wrap; gap: 6px; }
+    .bar-left  { font-size: 12px; }
+    .bar-right { gap: 8px !important; }
+
+    /* Stats single column */
+    .stats-grid { grid-template-columns: 1fr 1fr !important; gap: 8px; }
+    .stat-number { font-size: 1.6rem !important; }
+
+    /* Profile grid single column */
+    .profile-grid { grid-template-columns: 1fr !important; }
+    .detail-grid  { grid-template-columns: 1fr !important; }
+
+    /* Table font size */
+    .table td, .table th { font-size: 11px !important; padding: 4px 5px !important; }
+
+    /* Zoom buttons smaller */
+    .zoom-btn, .zoom-reset-btn { width: 36px; height: 36px; font-size: 17px; }
+    .zoom-reset-btn { font-size: 11px; }
+
+    /* Section title */
+    .section-title { font-size: 1rem !important; }
+    h4.section-title { font-size: 0.95rem !important; }
+
+    /* Cards */
+    .card { border-radius: 8px !important; }
+    .card-header { font-size: 13px !important; padding: 10px 12px !important; }
+    .card-body   { padding: 10px !important; }
+
+    /* Sidebar narrower */
+    .sidebar-menu { width: 190px !important; }
+
+    /* Modal */
+    .modal-dialog { margin: 4px; }
+    .modal-content { border-radius: 10px; }
+
+    /* Button text shrink */
+    .btn { font-size: 12px; padding: 5px 10px; }
+}
+
+/* ══════════════════════════════════════════════════════════
+   VERY SMALL (≤ 360px)
+══════════════════════════════════════════════════════════ */
+@media (max-width: 360px) {
+    .college-title { font-size: 0.9rem; }
+    .stats-grid    { grid-template-columns: 1fr !important; }
+    .zoom-controls { bottom: 14px; right: 10px; }
+}

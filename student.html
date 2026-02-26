@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=1100, minimum-scale=0.1, maximum-scale=5.0, user-scalable=yes">
     <title>Student Dashboard - College Automation System</title>
 
     <!-- Bootstrap CSS -->
@@ -17,6 +17,7 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="styles.css"><!-- reuse card styles from index -->
     <link rel="stylesheet" href="faculty.css">
+    <link rel="stylesheet" href="responsive.css">
 </head>
 <body>
     <!-- Full-page layout: remove card wrappers -->
@@ -37,6 +38,9 @@
         <!-- Password Action Bar -->
         <div class="password-action-bar">
             <div class="bar-left">
+                <button class="hamburger-btn" id="hamburgerBtn" aria-label="Toggle menu" aria-expanded="false">
+                    <i class="bi bi-list"></i>
+                </button>
                 <span class="principal-name">Student Dashboard</span>
             </div>
             <div class="bar-right">
@@ -1420,5 +1424,6 @@ document.getElementById('changePwdSaveBtn').addEventListener('click', async func
     }
 });
 </script>
+    <script src="responsive.js"></script>
 </body>
 </html>

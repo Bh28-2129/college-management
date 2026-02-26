@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=1100, minimum-scale=0.1, maximum-scale=5.0, user-scalable=yes">
     <title>Admin Dashboard - ECAP</title>
 
     <!-- Bootstrap CSS -->
@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <!-- Admin CSS -->
     <link rel="stylesheet" href="admin.css">
+    <link rel="stylesheet" href="responsive.css">
 </head>
 <body>
 
@@ -31,6 +32,9 @@
 <!-- ACTION BAR -->
 <div class="password-action-bar">
     <div class="bar-left">
+        <button class="hamburger-btn" id="hamburgerBtn" aria-label="Toggle menu" aria-expanded="false">
+            <i class="bi bi-list"></i>
+        </button>
         <i class="bi bi-shield-lock-fill me-2 text-primary"></i>
         <span>Admin Control Panel</span>
     </div>
@@ -1014,5 +1018,6 @@ renderDashboard();
 }
 </style>
 
+<script src="responsive.js"></script>
 </body>
 </html>
